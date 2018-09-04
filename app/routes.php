@@ -31,6 +31,9 @@ $app->group('', function () {
     $this->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
     $this->post('/auth/password/change', 'PasswordController:postChangePassword');
 
-    $this->get('/auth/edit/profile', 'EditController:getChangeProfile')->setName('auth.edit.profile');
-    $this->post('/auth/edit/profile', 'EditController:postChangeProfile');
+    $this->get('/auth/edit/user', 'EditController:getChangeProfile')->setName('auth.edit.user');
+    $this->post('/auth/edit/user', 'EditController:postChangeProfile');
+
+    $this->get('/user/edit/info', 'AboutController:getEditProfile')->setName('user.edit.info');
+    $this->post('/user/edit/info', 'AboutController:postEditProfile');
 })->add(new AuthMiddleware($container));

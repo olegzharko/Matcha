@@ -4,6 +4,7 @@ namespace Matcha\Controllers\Auth;
 
 use Matcha\Models\CheckEmail;
 use Matcha\Models\User;
+use Matcha\Models\About;
 
 /* use покажет какой родительский контроллер нужно использовать
  * */
@@ -67,7 +68,7 @@ class AuthController extends Controller
          * */
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
-            'username' => v::notEmpty()->usernameAvailable()->alpha(),
+            'username' => v::notEmpty()->usernameAvailable(),
             'name' => v::notEmpty()->alpha(),
             'surname' => v::notEmpty()->alpha(),
             'password' => v::noWhitespace()->notEmpty(),
@@ -94,6 +95,10 @@ class AuthController extends Controller
             'name' => $request->getParam('name'),
             'surname' => $request->getParam('surname'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+        ]);
+
+        About::create([
+            'userid' => $user->id,
         ]);
 
         $checkEmail = CheckEmail::create([

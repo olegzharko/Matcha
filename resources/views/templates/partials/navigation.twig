@@ -21,13 +21,17 @@
                            aria-haspopup="true" aria-expanded="false">{{ auth.user.username }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path_for('auth.password.change') }}">Change password</a></li>
-                            <li><a href="{{ path_for('auth.edit.profile') }}">Change profile</a></li>
-                            <li><a href="{{ path_for('auth.signout') }}">Sign out</a></li>
+                            <li><a href="{{ path_for('auth.edit.user') }}">Change profile</a></li>
+                            <li><a href="{{ path_for('user.edit.info') }}">Change info</a></li>
+
                         </ul>
                     </li>
                 {% else %}
                     <li><a href="{{ path_for('auth.signup') }}">Sign up</a></li>
                     <li><a href="{{ path_for('auth.signin') }}">Sign in</a></li>
+                {% endif %}
+                {% if auth.check %}
+                    <li><a href="{{ path_for('auth.signout') }}">Sign out</a></li>
                 {% endif %}
             </ul>
         </div>

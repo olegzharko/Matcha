@@ -2,21 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: ozharko
- * Date: 9/3/18
- * Time: 3:10 PM
+ * Date: 9/4/18
+ * Time: 3:55 PM
  */
 
 namespace Matcha\Models;
 
-
 use Illuminate\Database\Eloquent\Model;  // передало в Model все методы
 
-class CheckEmail extends Model
+class About extends Model
 {
-    protected $table = "check_email";
+    protected $table = 'about';
 
     protected $fillable = [
-        'email',
-        'uniqid',
+        'userid',
+        'gender',
+        'aboutme',
+        'sexualPref',
+        'biography',
+        'photo',
     ];
 }

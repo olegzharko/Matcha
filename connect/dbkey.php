@@ -4,4 +4,7 @@
 	$password = "123456";
 	$dbname = "matcha";
 	$dbtable = "guests";
-    $dbCheckEmail = "checkEmail";
+    $dbabout = "about";
+    $dbCheckEmail = "check_email";
+    $dbUserInterest = "user_interest";
+    $dbListOfInterest = "list_of_interest";

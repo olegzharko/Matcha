@@ -24,12 +24,51 @@
 
         $conn->exec($sql);
 
+
         $sql = "CREATE "
             . " TABLE IF NOT EXISTS "
             . $dbCheckEmail
             . " (id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
             email VARCHAR(255) NOT NULL, 
             uniqid VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP NULL DEFAULT NULL,
+            updated_at TIMESTAMP NULL DEFAULT NULL)";
+
+        $conn->exec($sql);
+
+
+		$sql = "CREATE "
+            . " TABLE IF NOT EXISTS "
+            . $dbabout
+            . " (id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            userid INT(11) NOT NULL, 
+            gender VARCHAR(255) NULL DEFAULT NULL,
+            aboutme VARCHAR(255) NULL DEFAULT NULL,
+            sexualPref VARCHAR(255) NULL DEFAULT NULL,
+            biography VARCHAR(255) NULL DEFAULT NULL,
+            created_at TIMESTAMP NULL DEFAULT NULL,
+            updated_at TIMESTAMP NULL DEFAULT NULL)";
+
+        $conn->exec($sql);
+
+
+        $sql = "CREATE "
+            . " TABLE IF NOT EXISTS "
+            . $dbUserInterest
+            . " (id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+            userid INT(11) NOT NULL, 
+            interestid VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP NULL DEFAULT NULL,
+            updated_at TIMESTAMP NULL DEFAULT NULL)";
+
+        $conn->exec($sql);
+
+
+        $sql = "CREATE "
+            . " TABLE IF NOT EXISTS "
+            . $dbListOfInterest
+            . " (id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+            interest INT(11) NOT NULL, 
             created_at TIMESTAMP NULL DEFAULT NULL,
             updated_at TIMESTAMP NULL DEFAULT NULL)";
 

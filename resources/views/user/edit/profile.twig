@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit profile</div>
                     <div class="panel-body">
-                        <form action="{{ path_for('auth.edit.profile') }}" method="post" autocomplete="off">
+                        <form action="{{ path_for('auth.edit.user') }}" method="post" autocomplete="off">
                             <div class="form-group{{ errors.email ? ' has-error' : '' }}">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" class="form-control" value="{{ edit.email }}">

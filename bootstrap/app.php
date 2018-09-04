@@ -132,6 +132,10 @@ $container['EditController'] = function ($container) {
     return new \Matcha\Controllers\Auth\EditController($container);
 };
 
+$container['AboutController'] = function ($container) {
+    return new \Matcha\Controllers\Profile\AboutController($container);
+};
+
 $container['csrf'] = function ($container) {
     return new \Slim\Csrf\Guard;
 };

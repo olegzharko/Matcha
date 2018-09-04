@@ -40,6 +40,6 @@ class HomeController extends Controller
     public function hello($request, $response)
     {
         $this->flash->addMessage('info', 'Check you email and confinm your account');
-        return $this->view->render($response, 'auth/hello/hello.twig');
+        return $this->view->render($response, 'hello/hello.twig');
     }
 }

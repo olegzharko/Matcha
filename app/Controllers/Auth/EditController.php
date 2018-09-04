@@ -23,12 +23,12 @@ class EditController extends Controller
             $edit['surname'] = $userInfo->surname;
 
             $this->container->view->getEnvironment()->addGlobal('edit', $edit);
-        return $this->view->render($response, 'auth/edit/profile.twig');
+        return $this->view->render($response, 'user/edit/profile.twig');
     }
 
     public function postChangeProfile($request, $response)
     {
-
+        r($response);die();
         $validation = $this->validator->validate($request, [
             /*
              * password задесь возвращается как свойство
@@ -56,8 +56,8 @@ class EditController extends Controller
         $this->container->view->getEnvironment()->addGlobal('edit', $edit);
 
         if ($validation->failed()) {
-          return $this->view->render($response, 'auth/edit/profile.twig');
-//        return $response->withRedirect($this->router->pathFor('auth.edit.profile'));
+          return $this->view->render($response, 'auth/edit/user.twig');
+//        return $response->withRedirect($this->router->pathFor('auth.edit.user'));
         }
 
         $id = $_SESSION['user'];
@@ -74,7 +74,7 @@ class EditController extends Controller
 //        $edit['surname'] = $request->getParam('surname');
         $this->checker->user()->setSurname($id, $edit['surname']);
 
-        $this->flash->addMessage('info', 'Your profile was changed');
+        $this->flash->addMessage('info', 'Your user was changed');
         return $response->withRedirect($this->router->pathFor('home'));
     }
 }
