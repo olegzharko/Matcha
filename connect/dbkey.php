@@ -2,9 +2,25 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "123456";
+
 	$dbname = "matcha";
-	$dbtable = "guests";
-    $dbabout = "about";
+
+    $dbUser = "user";
+
+    $dbAbout = "about";
+
+    $dbChat = "chat";
+
     $dbCheckEmail = "check_email";
+
+    $dbInterestList = "interest_list";
+
+    $dbLike = "likes";
+
+	$dbMatcha = "matcha";
+
+    $dbPhoto = "photo";
+
     $dbUserInterest = "user_interest";
-    $dbListOfInterest = "list_of_interest";
+
+

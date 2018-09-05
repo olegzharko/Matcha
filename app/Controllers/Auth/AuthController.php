@@ -98,12 +98,12 @@ class AuthController extends Controller
         ]);
 
         About::create([
-            'userid' => $user->id,
+            'user_id' => $user->id,
         ]);
 
         $checkEmail = CheckEmail::create([
             'email' => $user->email,
-            'uniqid' => md5(uniqid(rand(),time())),
+            'uniq_id' => md5(uniqid(rand(),time())),
         ]);
 
 
@@ -118,7 +118,7 @@ class AuthController extends Controller
         /* так как мы перенапрявлялись автоматически на главную / стартовую страницу
          * нам надо указать точно куда надо перейти
          * */
-        $this->sendEmail->sendEmail($user->email, $user->username, $checkEmail->uniqid);
+        $this->sendEmail->sendEmail($user->email, $user->username, $checkEmail->uniq_id);
 
         return $response->withRedirect($this->router->pathFor('hello'));
     }

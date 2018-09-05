@@ -15,7 +15,7 @@ class User extends Model
 {
     // $db = require_once __DIR__ . '/../../conf/settings.php';
 
-    protected $table = 'guests';
+    protected $table = 'user';
     /* найти способ передать имя таблицы с контейнера */
     /* protected $table = $db['db']['dbtable']['users']; */
 

@@ -36,4 +36,12 @@ $app->group('', function () {
 
     $this->get('/user/edit/info', 'AboutController:getEditProfile')->setName('user.edit.info');
     $this->post('/user/edit/info', 'AboutController:postEditProfile');
+
+    $this->get('/user/edit/interests', 'InterestsController:getInterestsProfile')->setName('user.edit.interests');
+    $this->post('/user/edit/interests', 'InterestsController:postInterestsProfile');
+    $this->post('/user/edit/interests_delete', 'InterestsController:postDeleteInterestsProfile')->setName('user.edit.interests_delete');
+    $this->post('/user/edit/interests_add', 'InterestsController:postAddInterestsProfile')->setName('user.edit.interests_add');
+
+    $this->get('/user/edit/photo', 'PhotoController:getPhotoProfile')->setName('user.edit.photo');
+    $this->post('/user/edit/photo', 'PhotoController:postPhotoProfile');
 })->add(new AuthMiddleware($container));

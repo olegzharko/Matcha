@@ -18,8 +18,8 @@ class AboutController extends Controller
 
         $validation = $this->validator->validate($request, [
             'gender' => v::notEmpty(),
-            'aboutme' => v::notEmpty(),
-            'sexualPref' => v::notEmpty(),
+            'about_me' => v::notEmpty(),
+            'sexual_pref' => v::notEmpty(),
             'biography' => v::notEmpty(),
 //            'listOfInterests' => v::notEmpty(),
 //            'photo' => v::notEmpty()
@@ -30,10 +30,10 @@ class AboutController extends Controller
         }
 
         About::where('id', $_SESSION['user'])->update([
-            'userid' => $_SESSION['user'],
+            'user_id' => $_SESSION['user'],
             'gender' => $request->getParam('gender'),
-            'aboutme' => $request->getParam('aboutme'),
-            'sexualPref' => $request->getParam('sexualPref'),
+            'about_me' => $request->getParam('about_me'),
+            'sexual_pref' => $request->getParam('sexual_pref'),
             'biography' => $request->getParam('biography'),
 //            'listOfInterests' => $request->getParam('listOfInterests'),
         ]);

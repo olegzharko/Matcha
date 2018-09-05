@@ -15,11 +15,10 @@ class About extends Model
     protected $table = 'about';
 
     protected $fillable = [
-        'userid',
+        'user_id',
         'gender',
-        'aboutme',
-        'sexualPref',
+        'about_me',
+        'sexual_pref',
         'biography',
-        'photo',
     ];
 }

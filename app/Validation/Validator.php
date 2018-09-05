@@ -68,5 +68,4 @@ class Validator
     {
         return !empty($this->errors);
     }
-
 }

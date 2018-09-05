@@ -23,11 +23,9 @@ class ActivateController extends Controller
 
     public function activate($request, $response)
     {
-        echo "HomeController confirm";
-
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email(),
-            'uniqid' => v::noWhitespace()->notEmpty(),
+            'uniq_id' => v::noWhitespace()->notEmpty(),
         ]);
 
         if ($validation->failed()) {
@@ -35,8 +33,8 @@ class ActivateController extends Controller
         }
 
         $email = $request->getParam('email');
-        $uniqid = $request->getParam('uniqid');
-        $user = CheckEmail::where('uniqid', $uniqid)->first();
+        $uniqid = $request->getParam('uniq_id');
+        $user = CheckEmail::where('uniq_id', $uniqid)->first();
 
         User::setActiveAccount($user->email);
         $email = $request->getParam('email');

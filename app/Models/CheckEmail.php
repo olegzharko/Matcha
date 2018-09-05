@@ -17,6 +17,6 @@ class CheckEmail extends Model
 
     protected $fillable = [
         'email',
-        'uniqid',
+        'uniq_id',
     ];
 }

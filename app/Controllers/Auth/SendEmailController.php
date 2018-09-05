@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ozharko
- * Date: 9/3/18
- * Time: 5:30 PM
- */
 
 namespace Matcha\Controllers\Auth;
 
-use Matcha\Models\User;
 
 class SendEmailController
 {
@@ -37,7 +30,7 @@ class SendEmailController
                         <body style=\"background: linear-gradient(to bottom right,#84afff 44%,#e4b0ff 100%);padding: 40px;color: white;min-height: 430px;\">
                             <h2>Hello $username and Welcome to Camagru World</h2>
                             <form method=\"post\" action=\"$confirmPage\">
-                                <input type=\"hidden\" name=\"uniqid\" value=\"$uniqid\">
+                                <input type=\"hidden\" name=\"uniq_id\" value=\"$uniqid\">
                                 <input type=\"hidden\" name=\"email\" value=\"$email\">
                                 <button>Confirm</button>
                                 <input type=\"hidden\" name=\"$tokeNameKey\" value=\"$tokenName\">

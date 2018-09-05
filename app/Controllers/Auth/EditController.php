@@ -28,7 +28,6 @@ class EditController extends Controller
 
     public function postChangeProfile($request, $response)
     {
-        r($response);die();
         $validation = $this->validator->validate($request, [
             /*
              * password задесь возвращается как свойство

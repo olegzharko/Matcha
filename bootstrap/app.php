@@ -136,6 +136,14 @@ $container['AboutController'] = function ($container) {
     return new \Matcha\Controllers\Profile\AboutController($container);
 };
 
+$container['InterestsController'] = function ($container) {
+    return new \Matcha\Controllers\Profile\InterestsController($container);
+};
+
+$container['UserInterest'] = function ($container) {
+    return new \Matcha\Controllers\Profile\UserInterest($container);
+};
+
 $container['csrf'] = function ($container) {
     return new \Slim\Csrf\Guard;
 };
