@@ -23,7 +23,7 @@ class EditController extends Controller
             $edit['surname'] = $userInfo->surname;
 
             $this->container->view->getEnvironment()->addGlobal('edit', $edit);
-        return $this->view->render($response, 'user/edit/profile.twig');
+        return $this->view->render($response, 'user/edit/edit-user.twig');
     }
 
     public function postChangeProfile($request, $response)
@@ -73,7 +73,7 @@ class EditController extends Controller
 //        $edit['surname'] = $request->getParam('surname');
         $this->checker->user()->setSurname($id, $edit['surname']);
 
-        $this->flash->addMessage('info', 'Your user was changed');
+        $this->flash->addMessage('info', 'Your user was updated');
         return $response->withRedirect($this->router->pathFor('home'));
     }
 }

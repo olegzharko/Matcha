@@ -26,6 +26,7 @@ class AboutController extends Controller
 		]);
 
 		if ($validation->failed()) {
+			$this->flash->addMessage('info', 'Fail');
 			return $response->withRedirect($this->router->pathFor('user.edit.info'));
 		}
 
@@ -37,6 +38,7 @@ class AboutController extends Controller
 			'biography' => $request->getParam('biography'),
 //            'listOfInterests' => $request->getParam('listOfInterests'),
 		]);
+		$this->flash->addMessage('info', 'Success');
 
 		return $response->withRedirect($this->router->pathFor('home'));
 	}

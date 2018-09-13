@@ -1,7 +1,8 @@
 {% extends 'templates/app.twig' %}
 
-{% block content %}
 
+{% block content %}
+{% include 'templates/partials/side-nav.twig' %}
 <section class="forms"> 
   <div class="container-fluid">
     <div class="row">
@@ -65,7 +66,7 @@
     	    	</div>
     	    </div>
     	    <div class="card-body">
-    	      <form>
+    	      <form action="{{ path_for('auth.edit.user') }}" method="post">
   		      	<div class="form-group">
   	      	    <label class="form-control-label">About me:</label>
   	      	    <textarea class="form-control" rows="4" maxlength="250"></textarea>
@@ -75,15 +76,15 @@
   	      	  <div class="form-group row">
       	        <div class="col-md-4">
       	          <label class="form-control-label">User Name</label>
-      	          <input type="text" value="codeGuy" class="form-control" maxlength="100">
+      	          <input type="text" name="username" value="{{ edit.username }}" class="form-control" maxlength="100">
       	        </div>
       	        <div class="col-md-4">
       	        	<label class="form-control-label">First Name</label>
-      	          <input type="text" value="Andrew" class="form-control" maxlength="100">
+      	          <input type="text" name="name" value="{{ edit.name }}" class="form-control" maxlength="100">
       	        </div>
       	        <div class="col-md-4">
       	        	<label class="form-control-label">Last Name</label>
-      	          <input type="text" value="Galavan" class="form-control" maxlength="100">
+      	          <input type="text" name="surname" value="{{ edit.surname }}" class="form-control" maxlength="100">
       	        </div>
   	      	  </div>
     	        <div class="line"></div>
@@ -134,4 +135,5 @@
   </div>
 </section>
 
+{% include 'templates/partials/footer.twig' %}
 {% endblock %}
