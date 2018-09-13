@@ -4,35 +4,46 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Matcha 42</title>
-		<meta name="description" content="Dating website allowing two potential lovers to meet, from the registration to the final encounter">
+		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="robots" content="all,follow">
 		<!-- Bootstrap CSS-->
 		<link rel="stylesheet" href="{{ base_url() }}/vendor/bootstrap/css/bootstrap.min.css">
 		<!-- Font Awesome CSS-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{ base_url() }}/vendor/font-awesome/css/font-awesome.min.css">
 		<!-- Fontastic Custom icon font-->
-		<link rel="stylesheet" href="{{ base_url() }}/css/fontastic.css">
-		<!-- Google fonts - Poppins -->
+		<link rel="stylesheet" href="{{ base_url() }}/css/fontastic.css"">
+		<!-- Google fonts - Poppins, Nunito, Dosis -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+		<link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/css?family=Dosis:400,500,600,700" rel="stylesheet">
 		<!-- theme stylesheet-->
 		<link rel="stylesheet" href="{{ base_url() }}/css/style.default.css" id="theme-stylesheet">
-		<!-- My custom stylesheet -->
+		<!-- Custom stylesheet - for your changes-->
 		<link rel="stylesheet" href="{{ base_url() }}/css/custom.css">
 		<!-- Favicon-->
 		<link rel="shortcut icon" href="{{ base_url() }}/img/favicon.ico">
 	</head>
 	<body>
-
+		
+		{% include 'templates/partials/navigation.twig' %}
+		{# {% include 'templates/partials/side-nav.twig' %} #}
 		{% block content %}{% endblock %}
 
+					
 		<!-- JavaScript files-->
+		<!-- <script
+		  src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		  crossorigin="anonymous"></script> -->
 		<script src="{{ base_url() }}/vendor/jquery/jquery.min.js"></script>
-		<script src="{{ base_url() }}/vendor/popper.js/umd/popper.min.js"> </script>
+		<!-- <script src="vendor/popper.js/umd/popper.min.js"> </script> -->
 		<script src="{{ base_url() }}/vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script src="{{ base_url() }}/vendor/jquery.cookie/jquery.cookie.js"> </script>
-		<script src="{{ base_url() }}/vendor/chart.js/Chart.min.js"></script>
+		<!-- <script src="vendor/jquery.cookie/jquery.cookie.js"> </script> -->
+		<!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
 		<script src="{{ base_url() }}/vendor/jquery-validation/jquery.validate.min.js"></script>
+		<!-- <script src="js/charts-home.js"></script> -->
 		<!-- Main File-->
 		<script src="{{ base_url() }}/js/front.js"></script>
 	</body>

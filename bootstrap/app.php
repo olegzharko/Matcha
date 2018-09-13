@@ -119,7 +119,6 @@ $container['ActivateController'] = function ($container) {
     return new \Matcha\Controllers\Auth\ActivateController($container);
 };
 
-
 $container['AuthController'] = function ($container) {
     return new \Matcha\Controllers\Auth\AuthController($container);
 };
