@@ -33,7 +33,11 @@ class HomeController extends Controller
 //        $user = User::where('email', 'alex@codecourse.com')->first();
 //        var_dump($user->email);
 //        die();
-
+/*
+	$data = User::....(); // array   data['name_user']
+	// data.name_user
+	$this->container->view->getEnvironment()->addGlobal('data', $data);
+*/
 		return $this->view->render($response, 'home.twig');
 	}
 

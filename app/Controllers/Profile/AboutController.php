@@ -19,8 +19,8 @@ class AboutController extends Controller
 		$validation = $this->validator->validate($request, [
 			'gender' => v::notEmpty(),
 			'about_me' => v::notEmpty(),
-			'sexual_pref' => v::notEmpty(),
-			'biography' => v::notEmpty(),
+			'sexual_pref' => v::notEmpty()
+			// 'biography' => v::notEmpty(),
 //            'listOfInterests' => v::notEmpty(),
 //            'photo' => v::notEmpty()
 		]);
@@ -34,8 +34,8 @@ class AboutController extends Controller
 			'user_id' => $_SESSION['user'],
 			'gender' => $request->getParam('gender'),
 			'about_me' => $request->getParam('about_me'),
-			'sexual_pref' => $request->getParam('sexual_pref'),
-			'biography' => $request->getParam('biography'),
+			'sexual_pref' => $request->getParam('sexual_pref')
+			// 'biography' => $request->getParam('biography'),
 //            'listOfInterests' => $request->getParam('listOfInterests'),
 		]);
 		$this->flash->addMessage('info', 'Success');

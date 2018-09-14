@@ -3,6 +3,7 @@
 namespace Matcha\Controllers\Auth;
 
 use Matcha\Models\User;
+use Matcha\Models\About;
 /*
  * use покажет какой родительский контроллер нужно использовать
  * */
@@ -14,13 +15,26 @@ class EditController extends Controller
 {
     public function getChangeProfile($request, $response)
     {
-
+        /*
+            $data = User::....(); // array   data['name_user']
+            // data.name_user
+            $this->container->view->getEnvironment()->addGlobal('data', $data);
+        */
             $userInfo = $this->checker->user();
+            $aboutTable = $this->checker->allAboutUser();
 
-            $edit['email'] = $userInfo->email;
+            // $interestsResult = $this->checker->allValueOfInterests();
+            // $this->container->view->getEnvironment()->addGlobal('interests', $interestsResult);
+
+            // $allInterests = InterestList::showAllInterests();
+            // $this->container->view->getEnvironment()->addGlobal('allInterests', $allInterests);
+
+            $edit['about_me'] = $aboutTable->about_me;
+            $edit['gender'] = $aboutTable->gender;
             $edit['username'] = $userInfo->username;
             $edit['name'] = $userInfo->name;
             $edit['surname'] = $userInfo->surname;
+            $edit['interests'] = $this->checker->allValueOfInterests();
 
             $this->container->view->getEnvironment()->addGlobal('edit', $edit);
         return $this->view->render($response, 'user/edit/edit-user.twig');
@@ -40,14 +54,14 @@ class EditController extends Controller
              * 
              * с чем он сравнивает? c объектом v:: ?
              * */
-            'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
+            // 'email' => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
             'username' => v::notEmpty()->usernameAvailable(),
             'name' => v::notEmpty()->alpha(),
             'surname' => v::notEmpty()->alpha(),
         ]);
 
 
-        $edit['email'] = $request->getParam('email');
+        // $edit['email'] = $request->getParam('email');
         $edit['username'] = $request->getParam('username');
         $edit['name'] = $request->getParam('name');
         $edit['surname'] = $request->getParam('surname');
@@ -62,7 +76,7 @@ class EditController extends Controller
         $id = $_SESSION['user'];
 
 //        $edit['email'] = $request->getParam('email');
-        $this->checker->user()->setEmail($id, $edit['email']);
+        // $this->checker->user()->setEmail($id, $edit['email']);
 
 //        $edit['username'] = $request->getParam('username');
         $this->checker->user()->setUsername($id, $edit['username']);

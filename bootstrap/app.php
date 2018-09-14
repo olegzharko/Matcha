@@ -31,7 +31,6 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM.
 $capsule->bootEloquent();
 
-
 /* read Laravel Documentation
  * создать движок для работы с БД а затем добавить его в container
  * длы работы с ним через db
@@ -54,7 +53,6 @@ $container['db'] = function ($container) use ($capsule) {
 $container['flash'] = function ($container) {
     return new \Slim\Flash\Messages;
 };
-
 
 /* устлвив Twig через композер он добавился по пути Slim\Views\twig
  * мы создали объект по его главнуму классу
