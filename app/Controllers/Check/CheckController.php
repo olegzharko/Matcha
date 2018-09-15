@@ -40,6 +40,7 @@ class CheckController
 
     public function allValueOfInterests()
     {
+        $interestsResult = [];
         $userInterest = $this->allUserInterests();
         foreach($userInterest as $row) {
             if ($row->user_id == $_SESSION['user']) {

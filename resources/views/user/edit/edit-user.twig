@@ -99,18 +99,21 @@
   	      	  <p class="bright-heading">What are you passioned about?</p>
   	      	  <div class="form-group">
 	      	      <select multiple="" class="form-control" data-placeholder="Add interests">
-	      	        <option value="photo">photo</option>
-	      	        <option value="yoga">yoga</option>
-	      	        <option value="films">films</option>
-	      	        <option value="rock">rock</option>
-	      	        <option value="pop">pop</option>
-	      	        <option value="veg">veg</option>
-	      	        <option value="steaks">steaks</option>
-	      	        <option value="music">music</option>
-	      	        <option value="gum">gum</option>
-	      	        <option value="workout">workout</option>
-	      	        <option value="make up">make up</option>
-	      	        <option value="fun">fun</option>
+                  {% for interest in allInterests %}
+                      <option {% if interest in interests %} {{'selected'}} {% endif %}>{{ interest }}</option>
+                  {% endfor %}
+	      	        {#<!-- <option>photo</option>
+	      	        <option>yoga</option>
+	      	        <option>films</option>
+	      	        <option>rock</option>
+	      	        <option>pop</option>
+	      	        <option>veg</option>
+	      	        <option>steaks</option>
+	      	        <option>music</option>
+	      	        <option>gum</option>
+	      	        <option>workout</option>
+	      	        <option>make up</option>
+	      	        <option>fun</option> -->#}
 	      	      </select>
   	      	  </div>
   	      	  <div class="line"></div>

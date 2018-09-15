@@ -47,17 +47,25 @@ class InterestsController extends Controller
             'interest_id' => $interest->id,
         ]);
 
-        return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+        // return $response->withRedirect($this->router->pathFor('user.edit.interests'));
     }
 
     public function postDeleteInterestsProfile($request, $response)
     {
-        $interestWithTokenLikeKey = $request->getParsedBody();
-        $interestWithTokenLikeIndex = array_keys($interestWithTokenLikeKey);
-        $find = $interestWithTokenLikeIndex['0'];
+        $validation = $this->validator->validate($request, [
+            'interest' => v::notEmpty(),
+        ]);
+        if ($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+        }
+        $interest = $request->getParam('interest');
 
-        $allRowCurrentInterests = InterestList::where('interest', $find)->first();
-//        r($allRowCurrentInterests->id);die();
+        // $interestWithTokenLikeKey = $request->getParsedBody();
+        // $interestWithTokenLikeIndex = array_keys($interestWithTokenLikeKey);
+        // $find = $interestWithTokenLikeIndex['0'];
+
+        $allRowCurrentInterests = InterestList::where('interest', $interest)->first();
+       // r($allRowCurrentInterests->id);die();
         UserInterest::where('interest_id', $allRowCurrentInterests->id)->delete();
 
         return $response->withRedirect($this->router->pathFor('user.edit.interests'));
@@ -85,6 +93,7 @@ class InterestsController extends Controller
             ]);
         }
 
+        // return ;
         return $response->withRedirect($this->router->pathFor('user.edit.interests'));
     }
 }

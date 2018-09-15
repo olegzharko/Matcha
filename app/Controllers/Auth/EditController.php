@@ -4,6 +4,8 @@ namespace Matcha\Controllers\Auth;
 
 use Matcha\Models\User;
 use Matcha\Models\About;
+use Matcha\Models\InterestList;
+use Matcha\Models\UserInterest;
 /*
  * use покажет какой родительский контроллер нужно использовать
  * */
@@ -23,18 +25,18 @@ class EditController extends Controller
             $userInfo = $this->checker->user();
             $aboutTable = $this->checker->allAboutUser();
 
-            // $interestsResult = $this->checker->allValueOfInterests();
-            // $this->container->view->getEnvironment()->addGlobal('interests', $interestsResult);
+            $interestsResult = $this->checker->allValueOfInterests();
+            $this->container->view->getEnvironment()->addGlobal('interests', $interestsResult);
 
-            // $allInterests = InterestList::showAllInterests();
-            // $this->container->view->getEnvironment()->addGlobal('allInterests', $allInterests);
+            $allInterests = InterestList::showAllInterests();
+            $this->container->view->getEnvironment()->addGlobal('allInterests', $allInterests);
 
             $edit['about_me'] = $aboutTable->about_me;
             $edit['gender'] = $aboutTable->gender;
             $edit['username'] = $userInfo->username;
             $edit['name'] = $userInfo->name;
             $edit['surname'] = $userInfo->surname;
-            $edit['interests'] = $this->checker->allValueOfInterests();
+            // $edit['interests'] = $this->checker->allValueOfInterests();
 
             $this->container->view->getEnvironment()->addGlobal('edit', $edit);
         return $this->view->render($response, 'user/edit/edit-user.twig');
