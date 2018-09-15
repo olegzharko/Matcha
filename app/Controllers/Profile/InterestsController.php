@@ -15,85 +15,84 @@ use Respect\Validation\Validator as v;
 
 class InterestsController extends Controller
 {
-    public function getInterestsProfile($request, $response)
-    {
-        $interestsResult = $this->checker->allValueOfInterests();
-        $this->container->view->getEnvironment()->addGlobal('interests', $interestsResult);
+	// public function getInterestsProfile($request, $response)
+	// {
+	//     $interestsResult = $this->checker->allValueOfInterests();
+	//     $this->container->view->getEnvironment()->addGlobal('interests', $interestsResult);
 
-        $allInterests = InterestList::showAllInterests();
-        $this->container->view->getEnvironment()->addGlobal('allInterests', $allInterests);
+	//     $allInterests = InterestList::showAllInterests();
+	//     $this->container->view->getEnvironment()->addGlobal('allInterests', $allInterests);
 
-        return $this->view->render($response, 'user/edit/interests.twig');
-    }
+	//     return $this->view->render($response, 'user/edit/interests.twig');
+	// }
 
-    public function postInterestsProfile($request, $response)
-    {
-        $validation = $this->validator->validate($request, [
-            'interest' => v::notEmpty()->interestAvailable(),
-        ]);
+	// public function postInterestsProfile($request, $response)
+	// {
+	//     $validation = $this->validator->validate($request, [
+	//         'interest' => v::notEmpty()->interestAvailable(),
+	//     ]);
 
-        if ($validation->failed()) {
-            return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-        }
+	//     if ($validation->failed()) {
+	//         return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+	//     }
 
-        $interest = $request->getParam('interest');
+	//     $interest = $request->getParam('interest');
 
-        $interest = InterestList::create([
-            'interest' => $interest,
-        ]);
+	//     $interest = InterestList::create([
+	//         'interest' => $interest,
+	//     ]);
 
-        UserInterest::create([
-            'user_id' => $_SESSION['user'],
-            'interest_id' => $interest->id,
-        ]);
+	//     UserInterest::create([
+	//         'user_id' => $_SESSION['user'],
+	//         'interest_id' => $interest->id,
+	//     ]);
 
-        // return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-    }
+	//     return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+	// }
 
-    public function postDeleteInterestsProfile($request, $response)
-    {
-        $validation = $this->validator->validate($request, [
-            'interest' => v::notEmpty(),
-        ]);
-        if ($validation->failed()) {
-            return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-        }
-        $interest = $request->getParam('interest');
+	public function postDeleteInterestsProfile($request, $response)
+	{
+		$validation = $this->validator->validate($request, [
+			'interest' => v::notEmpty(),
+		]);
+		if ($validation->failed()) {
+			return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+		}
+		$interest = $request->getParam('interest');
 
-        // $interestWithTokenLikeKey = $request->getParsedBody();
-        // $interestWithTokenLikeIndex = array_keys($interestWithTokenLikeKey);
-        // $find = $interestWithTokenLikeIndex['0'];
+		// $interestWithTokenLikeKey = $request->getParsedBody();
+		// $interestWithTokenLikeIndex = array_keys($interestWithTokenLikeKey);
+		// $find = $interestWithTokenLikeIndex['0'];
 
-        $allRowCurrentInterests = InterestList::where('interest', $interest)->first();
-       // r($allRowCurrentInterests->id);die();
-        UserInterest::where('interest_id', $allRowCurrentInterests->id)->delete();
+		$allRowCurrentInterests = InterestList::where('interest', $interest)->first();
+	   // r($allRowCurrentInterests->id);die();
+		UserInterest::where('interest_id', $allRowCurrentInterests->id)->delete();
 
-        return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-    }
+		// return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+	}
 
-    public function postAddInterestsProfile($request, $response)
-    {
-        $validation = $this->validator->validate($request, [
-            'interest' => v::notEmpty(),
-        ]);
+	public function postAddInterestsProfile($request, $response)
+	{
+		$validation = $this->validator->validate($request, [
+			'interest' => v::notEmpty(),
+		]);
 
-        if ($validation->failed()) {
-            return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-        }
+		if ($validation->failed()) {
+			return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+		}
 
-        $interest = $request->getParam('interest');
+		$interest = $request->getParam('interest');
 
-        $allRowCurrentInterests = InterestList::where('interest', $interest)->first();
+		$allRowCurrentInterests = InterestList::where('interest', $interest)->first();
 
-        if (UserInterest::where('interest_id', $allRowCurrentInterests->id)->count() === 0)
-        {
-            UserInterest::create([
-                'user_id' => $_SESSION['user'],
-                'interest_id' => $allRowCurrentInterests->id,
-            ]);
-        }
+		if (UserInterest::where('interest_id', $allRowCurrentInterests->id)->count() === 0)
+		{
+			UserInterest::create([
+				'user_id' => $_SESSION['user'],
+				'interest_id' => $allRowCurrentInterests->id,
+			]);
+		}
 
-        // return ;
-        return $response->withRedirect($this->router->pathFor('user.edit.interests'));
-    }
+		// return $response->withRedirect($this->router->pathFor('user.edit.interests'));
+	}
 }

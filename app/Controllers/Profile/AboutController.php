@@ -8,10 +8,10 @@ use Respect\Validation\Validator as v;
 
 class AboutController extends Controller
 {
-	public function getEditProfile($request, $response)
-	{
-		return $this->view->render($response, 'user/edit/info.twig');
-	}
+	// public function getEditProfile($request, $response)
+	// {
+	// 	return $this->view->render($response, 'user/edit/info.twig');
+	// }
 
 	public function postEditProfile($request, $response)
 	{

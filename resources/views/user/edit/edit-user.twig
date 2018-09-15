@@ -89,7 +89,7 @@
   	      	  </div>
               <div class="form-group">
                 <label class="form-control-label">Gender</label>
-                <select name="account" value="woman" class="form-control mb-4">
+                <select name="gender" class="form-control mb-4">
                   <option value="man" {{edit.gender == 'man' ? 'selected':'' }}>man</option>
                   <option value="woman" {{edit.gender == 'woman' ? 'selected':'' }}>woman</option>
                   <option value="other" {{edit.gender == 'other' ? 'selected':'' }}>other</option>
@@ -100,20 +100,8 @@
   	      	  <div class="form-group">
 	      	      <select multiple="" class="form-control" data-placeholder="Add interests">
                   {% for interest in allInterests %}
-                      <option {% if interest in interests %} {{'selected'}} {% endif %}>{{ interest }}</option>
+                    <option {% if interest in interests %} {{'selected'}} {% endif %}>{{ interest }}</option>
                   {% endfor %}
-	      	        {#<!-- <option>photo</option>
-	      	        <option>yoga</option>
-	      	        <option>films</option>
-	      	        <option>rock</option>
-	      	        <option>pop</option>
-	      	        <option>veg</option>
-	      	        <option>steaks</option>
-	      	        <option>music</option>
-	      	        <option>gum</option>
-	      	        <option>workout</option>
-	      	        <option>make up</option>
-	      	        <option>fun</option> -->#}
 	      	      </select>
   	      	  </div>
   	      	  <div class="line"></div>
