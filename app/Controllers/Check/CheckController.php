@@ -12,6 +12,7 @@ class CheckController
      * */
 
     private $container;
+    protected $interestsResult;
 
     public function __construct($container)
     {
@@ -31,6 +32,7 @@ class CheckController
 
     public function allValueOfInterests()
     {
+        $interestsResult = array();
         $userInterest = $this->allUserInterests();
         foreach($userInterest as $row) {
             if ($row->user_id == $_SESSION['user']) {
@@ -38,7 +40,8 @@ class CheckController
                 $interestsResult[] = $interestRow->interest;
             }
         }
-        return $interestsResult;
+        if ($interestsResult)
+            return $interestsResult;
     }
 
     public function check()

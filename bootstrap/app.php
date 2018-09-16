@@ -149,6 +149,9 @@ $container['PhotoController'] = function ($container) {
 
 $container['upload_directory'] = $_SERVER['DOCUMENT_ROOT'] . 'img';
 
+$container['SearchController'] = function ($container) {
+    return new \Matcha\Controllers\Search\SearchController($container);
+};
 $container['csrf'] = function ($container) {
     return new \Slim\Csrf\Guard;
 };

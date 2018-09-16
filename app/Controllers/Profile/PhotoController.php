@@ -64,7 +64,7 @@ class PhotoController extends Controller
 
         $src = preg_replace('/_/', '.', $src);
         Photo::delUserPhoto($src);
-        
+
         return $response->withRedirect($this->router->pathFor('user.edit.photo'));
     }
 }

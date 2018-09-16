@@ -29,7 +29,7 @@ class AboutController extends Controller
 			return $response->withRedirect($this->router->pathFor('user.edit.info'));
 		}
 
-		About::where('id', $_SESSION['user'])->update([
+		About::where('user_id', $_SESSION['user'])->update([
 			'user_id' => $_SESSION['user'],
 			'gender' => $request->getParam('gender'),
 			'about_me' => $request->getParam('about_me'),
