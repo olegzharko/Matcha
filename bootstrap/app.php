@@ -143,6 +143,12 @@ $container['UserInterest'] = function ($container) {
     return new \Matcha\Controllers\Profile\UserInterest($container);
 };
 
+$container['PhotoController'] = function ($container) {
+    return new \Matcha\Controllers\Profile\PhotoController($container);
+};
+
+$container['upload_directory'] = $_SERVER['DOCUMENT_ROOT'] . 'img';
+
 $container['csrf'] = function ($container) {
     return new \Slim\Csrf\Guard;
 };

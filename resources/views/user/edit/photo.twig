@@ -1,0 +1,28 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <p>
+    <label>Photo; </label><br/>
+
+    {% for photo in allphoto %}
+        <form action="{{ path_for('user.edit.photo_delete') }}" method="post">
+            <img src="{{ photo }}" alt="">
+            <input type="submit" name="{{ photo }}" value="delphoto">
+            {{ csrf.field | raw }}{# raw скроет строку #}
+        </form>
+    {% endfor %}
+
+    <input type="file" name="photo"/>
+    </p>
+    <form method="post" enctype="multipart/form-data">
+        <!-- upload of a single file allphoto-->
+
+        <p>
+            <input type="submit"/>
+        </p>
+        {{ csrf.field | raw }}{# raw скроет строку #}
+    </form>
+
+
+{% endblock %}
