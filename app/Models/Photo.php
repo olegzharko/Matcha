@@ -14,14 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     protected $table = 'photo';
-    /* найти способ передать имя таблицы с контейнера */
-    /* protected $table = $db['db']['dbtable']['users']; */
 
-
-
-    /* ???
-     * по какому шыблону мы создаем польщователя
-     * */
     protected $fillable = [
         'user_id',
         'photo_src',
@@ -37,27 +30,24 @@ class Photo extends Model
 
     public static function delUserPhoto($src)
     {
-        Photo::where([
-            'photo_src' => $src,
-        ])->delete();
-    }
-
-    public static function allPhoto()
-    {
-        if (isset($_SESSION['user']))
-            return Photo::all();
+        Photo::where('photo_src', $src)->delete();
     }
 
     public static function getUserPhoto()
     {
-        $allPhoto = self::allPhoto();
-        foreach($allPhoto as $row) {
-            if ($row->user_id == $_SESSION['user']) {
+        $allPhoto = Photo::get();
+        if ($allPhoto) {
+            if (!empty($allPhoto['0']) && isset($allPhoto['0']))
+            {
+                foreach($allPhoto as $key => $row) {
+                    if ($row->user_id == $_SESSION['user']) {
 
-                $photoRow = Photo::where('photo_src', $row->photo_src)->first();
-                $photoResult[] = $photoRow->photo_src;
+                        $photoRow = Photo::where('photo_src', $row->photo_src)->first();
+                        $photoResult[] = $photoRow->photo_src;
+                    }
+                }
+                return $photoResult;
             }
         }
-        return $photoResult;
     }
 }
