@@ -12,6 +12,7 @@ use Matcha\Models\CheckEmail;
 use Matcha\Models\User;
 use Matcha\Models\About;
 use Matcha\Models\UserInterest;
+use Matcha\Models\Photo;
 use Matcha\Controllers\Controller;
 use Matcha\Controllers\Check\CheckController;
 use Respect\Validation\Validator as v;
@@ -37,12 +38,16 @@ class HomeController extends Controller
 //        $user = User::where('email', 'alex@codecourse.com')->first();
 //        var_dump($user->email);
 //        die();
+		$allPhoto = Photo::getUserPhoto();
 		$aboutTable = $this->checker->allAboutUser();
 		$interestsResult = $this->checker->allValueOfInterests();
 
 		$about['about_me'] = $aboutTable->about_me;
 		$about['age'] = $aboutTable->age;
 		$about['user_interests'] = $interestsResult;
+		if ($allPhoto) {
+			$about['user_photo'] = $allPhoto;
+		}
 		$this->container->view->getEnvironment()->addGlobal('about', $about);
 /*
 	$data = User::....(); // array   data['name_user']

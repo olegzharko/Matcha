@@ -6,6 +6,7 @@ use Matcha\Models\User;
 use Matcha\Models\About;
 use Matcha\Models\InterestList;
 use Matcha\Models\UserInterest;
+use Matcha\Models\Photo;
 /*
  * use покажет какой родительский контроллер нужно использовать
  * */
@@ -17,6 +18,10 @@ class EditController extends Controller
 {
 	public function getChangeProfile($request, $response)
 	{
+		$allPhoto = Photo::getUserPhoto();
+		if ($allPhoto)
+			$this->container->view->getEnvironment()->addGlobal('allphoto', $allPhoto);
+
 		$userInfo = $this->checker->user();
 		$aboutTable = $this->checker->allAboutUser();
 

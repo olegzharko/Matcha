@@ -285,16 +285,27 @@ $(document).ready(function() {
 	  // When a new file is selected
 	  $file.on('change', function(event){
 		var fileName = $file.val().split( '\\' ).pop(),
-			tmppath = URL.createObjectURL(event.target.files[0]);
+			// tmppath = URL.createObjectURL(event.target.files[0]);
+			tmppath = event.target.files[0];
 		//Check successfully selection
+		console.log(tmppath);
 			if( fileName ){
-		  $label
-			.addClass('file-ok')
-			.css('background-image', 'url(' + tmppath + ')');
-				$labelText.text(fileName);
+				var url = '/user/edit/photo';
+		    var tokenName =  $('input[name="csrf_name"]').attr('value');
+				var tokenValue =  $('input[name="csrf_value"]').attr('value');
+				var data = {"photo" : tmppath,"csrf_name" : tokenName,"csrf_value" : tokenValue};
+				console.log(data);
+				$.post(url ,data, function(response) {
+					console.log('success');
+				});
+
+		 //  $label
+			// .addClass('file-ok')
+			// .css('background-image', 'url(' + tmppath + ')');
+			// 	$labelText.text(fileName);
 		}else{
-		  $label.removeClass('file-ok');
-				$labelText.text(labelDefault);
+			$label.removeClass('file-ok');
+			$labelText.text(labelDefault);
 		}
 	  });
 	  
@@ -348,29 +359,6 @@ $(document).ready(function() {
 	select.wrap(div);
 
 	$(document).on('click', '.selectMultiple ul li', function(e) {
-		// var tokenName =  $('input[name="csrf_name"]').attr('value');
-		// var tokenValue =  $('input[name="csrf_value"]').attr('value');
-		// var csrfData = {"csrf_name" : tokenName,"csrf_value" : tokenValue};
-    // $.ajaxSetup({
-    //     beforeSend: function(xhr) {
-    //         xhr.setRequestHeader('Csrf-Token', csrfData)
-    //     }
-    // });
-
-    // $.ajax({
-    //     url : "AJAX_POST_URL",
-    //     type: "POST",
-    //     data : csrfData,
-    //     success: function(data, textStatus, jqXHR)
-    //     {
-    //         //data - response from server
-    //     },
-    //     error: function (jqXHR, textStatus, errorThrown)
-    //     {
-     
-    //     }
-    // });
-
     var select = $(this).parent().parent();
 		var li = $(this);
     var url = '/user/edit/interests_add';
