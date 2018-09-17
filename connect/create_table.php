@@ -32,8 +32,8 @@
             user_id INT(11) NOT NULL, 
             gender VARCHAR(255) NULL DEFAULT NULL,
             about_me VARCHAR(255) NULL DEFAULT NULL,
+            age INT(11) NOT NULL DEFAULT 18,
             sexual_pref VARCHAR(255) NULL DEFAULT NULL,
-            biography VARCHAR(255) NULL DEFAULT NULL,
             created_at TIMESTAMP NULL DEFAULT NULL,
             updated_at TIMESTAMP NULL DEFAULT NULL)";
 

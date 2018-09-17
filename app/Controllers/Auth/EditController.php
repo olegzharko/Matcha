@@ -28,6 +28,7 @@ class EditController extends Controller
 
 		$edit['about_me'] = $aboutTable->about_me;
 		$edit['gender'] = $aboutTable->gender;
+		$edit['age'] = $aboutTable->age;
 		$edit['username'] = $userInfo->username;
 		$edit['name'] = $userInfo->name;
 		$edit['surname'] = $userInfo->surname;
@@ -61,17 +62,17 @@ class EditController extends Controller
 
 		// r($request);
 		// die();
+		if ($validation->failed()) {
+			return $this->view->render($response, 'user/edit/edit-user.twig');
+		}
+
 		$edit['username'] = $request->getParam('username');
 		$edit['name'] = $request->getParam('name');
 		$edit['surname'] = $request->getParam('surname');
 		$edit['about_me'] = $request->getParam('about_me');
 		$edit['gender'] = $request->getParam('gender');
-
+		$edit['age'] = $request->getParam('age');
 		$this->container->view->getEnvironment()->addGlobal('edit', $edit);
-
-		if ($validation->failed()) {
-			return $this->view->render($response, 'user/edit/edit-user.twig');
-		}
 
 		$id = $_SESSION['user'];
 
@@ -90,7 +91,8 @@ class EditController extends Controller
 		About::where('user_id', $id)->update([
 			// 'user_id' => $id,
 			'gender' => $edit['gender'],
-			'about_me' => $edit['about_me']
+			'about_me' => $edit['about_me'],
+			'age' => $edit['age']
 			// 'sexual_pref' => $request->getParam('sexual_pref')
 			// 'biography' => $request->getParam('biography'),
 //            'listOfInterests' => $request->getParam('listOfInterests'),

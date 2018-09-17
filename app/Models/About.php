@@ -18,7 +18,8 @@ class About extends Model
         'user_id',
         'gender',
         'about_me',
+        'age',
         'sexual_pref',
-        'biography',
+        // 'biography',
     ];
 }

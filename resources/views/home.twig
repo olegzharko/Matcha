@@ -37,17 +37,15 @@
 								  </a>
 								</div>
 								<div class="client-title text-center">
-									<h3>{{ auth.user.name }} {{ auth.user.surname }},</h3><span>25</span>
+									<h3>{{ auth.user.username }},</h3><span>{{ about.age }}</span>
 								</div>
 									<h5 class="card-title">About me:</h5>
-									<p class="card-text">Hi! I'm junior software developer curently styding at Unit Factory. Looking for new friends to chat here in Matcha and maybe than meet in the city.</p>
+									<p class="card-text">{{ about.about_me }}</p>
 									<h5 class="card-title">My interests:</h5>
 									<div id="user-tags">
-										<span class="badge badge-info">Veg</span>
-										<span class="badge badge-info">Coffee</span>
-										<span class="badge badge-info">Yoga</span>
-										<span class="badge badge-info">Movies</span>
-										<span class="badge badge-info">Adventure</span>
+										{% for interest in about.user_interests %}
+												<span class="badge badge-info">{{ interest }}</span>
+										{% endfor %}
 									</div>
 									<h5 class="card-title mt-3">Popularity:</h5>
 									<div class="progress" style="height: 4px">
