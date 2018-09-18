@@ -45,7 +45,15 @@ class PhotoController extends Controller
 				$response->write('uploaded ' . $filename . '<br/>');
 			}
 		}
-		return $response->withRedirect($this->router->pathFor('user.edit.photo'));
+		// handle multiple inputs with the same key
+	    // foreach ($uploadedFiles['photo'] as $uploadedFile) {
+	    //     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+	    //         $filename = $this->moveUploadedFile($directory, $uploadedFile, $userdir);
+	    //         $response->write('uploaded ' . $filename . '<br/>');
+	    //     }
+	    // }
+		// return $response->withRedirect($this->router->pathFor('user.edit.photo'));
+		// return $response->withRedirect($this->router->pathFor('auth.edit.user'));
 	}
 	
 	public function postDeletePhotoProfile($request, $response)
@@ -54,7 +62,9 @@ class PhotoController extends Controller
 		$photoWithTokenLikeIndex = array_keys($photoWithTokenLikeKey);
 		$src = $photoWithTokenLikeIndex['0'];
 		$src = preg_replace('/_/', '.', $src);
+		$src = str_replace('http://127.0.0.1:8800', '', $src);
 		Photo::delUserPhoto($src);
-		return $response->withRedirect($this->router->pathFor('user.edit.photo'));
+		echo $src;
+		// return $response->withRedirect($this->router->pathFor('auth.edit.user'));
 	}
 }

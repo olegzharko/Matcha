@@ -181,7 +181,7 @@ $(document).ready(function () {
 // Prevent user img carusel to change slides
 // ------------------------------------------------------ //
 $('.carousel').carousel({
-  interval: 0
+	interval: 0
 });
 
 // ------------------------------------------------------ //
@@ -276,43 +276,148 @@ $('.carousel').carousel({
 // ------------------------------------------------------ //
 
 $(document).ready(function() {
+	// userPhoto.forEach(function(element) {
+	//     console.log(element);
+	// });
+	var i = 0;
 	$('input[type="file"]').each(function(){
-	  // Refs
-	  var $file = $(this),
-		  $label = $file.next('label'),
-		  $labelText = $label.find('span'),
-		  labelDefault = $labelText.text();
-	  // When a new file is selected
-	  $file.on('change', function(event){
-		var fileName = $file.val().split( '\\' ).pop(),
-			// tmppath = URL.createObjectURL(event.target.files[0]);
-			tmppath = event.target.files[0];
-		//Check successfully selection
-		console.log(tmppath);
-			if( fileName ){
-				var url = '/user/edit/photo';
-		    var tokenName =  $('input[name="csrf_name"]').attr('value');
-				var tokenValue =  $('input[name="csrf_value"]').attr('value');
-				var data = {"photo" : tmppath,"csrf_name" : tokenName,"csrf_value" : tokenValue};
-				console.log(data);
-				$.post(url ,data, function(response) {
-					console.log('success');
-				});
-
-		 //  $label
-			// .addClass('file-ok')
-			// .css('background-image', 'url(' + tmppath + ')');
-			// 	$labelText.text(fileName);
-		}else{
-			$label.removeClass('file-ok');
-			$labelText.text(labelDefault);
+		// Refs
+		var $file = $(this),
+			$label = $file.next('label'),
+			$labelCloseLink = $label.find('a'),
+			$labelText = $label.find('span'),
+			labelDefault = $labelText.text();
+		if (userPhoto && userPhoto[i]) {
+			$label
+				.addClass('file-ok')
+				.css('background-image', 'url(' + userPhoto[i] + ')');
+			$labelCloseLink.css('display', 'block');
+			i++;
 		}
-	  });
-	  
+		// When a new file is selected
+		$file.on('change', function(event){
+			// var fileName = $file.val().split( '\\' ).pop();
+			var	tmppath = event.target.files[0],
+				bg_img = URL.createObjectURL(tmppath);
+			//Check successfully selection
+			// console.log(tmppath);
+			// if ( fileName ) {
+				// var url = '/user/edit/photo';
+			var data = new FormData();
+			var tokenName =  $('input[name="csrf_name"]').attr('value');
+			var tokenValue =  $('input[name="csrf_value"]').attr('value');
+			// var data = {"photo" : tmppath,"csrf_name" : tokenName,"csrf_value" : tokenValue};
+			data.append("photo", tmppath);//$('input[type=file]')[0].files[0]);
+			data.append("csrf_name", tokenName);
+			data.append("csrf_value", tokenValue);
+			// console.log(data);
+			$.ajax({
+				url: '/user/edit/photo',
+				type: 'POST',
+				method: 'POST',
+				data: data,
+				cache: false,
+				// dataType: 'json',
+				processData: false, // Don't process the files
+				contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+				success: function(data, textStatus, jqXHR)
+				{
+					console.log('success');
+					// STOP LOADING SPINNER
+					$label
+						.addClass('file-ok')
+						.css('background-image', 'url(' + bg_img + ')');
+					$labelCloseLink.css('display', 'block');
+				},
+				error: function(jqXHR, textStatus, errorThrown)
+				{
+					// Handle errors here
+					console.log('ERRORS: ' + textStatus);
+					// STOP LOADING SPINNER
+				}
+			});
+
+			//   $label
+			// 	.addClass('file-ok')
+			// 	.css('background-image', 'url(' + bg_img + ')');
+			// 		$labelText.text(fileName);
+			// } else {
+			// 	$label.removeClass('file-ok');
+			// 	$labelText.text(labelDefault);
+			// }
+		});
+
+		// When close link is clicked
+		$labelCloseLink.on('click', function(event) {
+			var imgSrc = $(this).parent().css('background-image');
+			imgSrc = imgSrc.replace('url(','').replace(')','').replace(/\"/gi, "");
+			// console.log(imgSrc);
+			var data = new FormData();
+			var tokenName =  $('input[name="csrf_name"]').attr('value');
+			var tokenValue =  $('input[name="csrf_value"]').attr('value');
+			data.append(imgSrc, "delphoto");
+			data.append("csrf_name", tokenName);
+			data.append("csrf_value", tokenValue);
+			// console.log(data);
+			$.ajax({
+				url: '/user/edit/photo_delete',
+				type: 'POST',
+				method: 'POST',
+				data: data,
+				cache: false,
+				// dataType: 'json',
+				processData: false, // Don't process the files
+				contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+				success: function(data, textStatus, jqXHR)
+				{
+					console.log(data);
+					$label.removeClass('file-ok');
+					$labelText.text(labelDefault);
+					// STOP LOADING SPINNER
+					
+				},
+				error: function(jqXHR, textStatus, errorThrown)
+				{
+					// Handle errors here
+					console.log('ERRORS: ' + textStatus);
+					// STOP LOADING SPINNER
+				}
+			});
+		});
+		
 	// End loop of file input elements  
 	});
 	// End ready function
 });
+
+// $(document).ready(function() {
+// 	$('input[type="file"]').each(function(){
+// 	  // Refs
+// 	  var $file = $(this),
+// 	      $label = $file.next('label'),
+// 	      $labelText = $label.find('span'),
+// 	      labelDefault = $labelText.text();
+		
+// 	  // When a new file is selected
+// 	  $file.on('change', function(event){
+// 	    var fileName = $file.val().split( '\\' ).pop(),
+// 	        tmppath = URL.createObjectURL(event.target.files[0]);
+// 	    //Check successfully selection
+// 			if( fileName ){
+// 	      $label
+// 	        .addClass('file-ok')
+// 	        .css('background-image', 'url(' + tmppath + ')');
+// 				$labelText.text(fileName);
+// 	    }else{
+// 	      $label.removeClass('file-ok');
+// 				$labelText.text(labelDefault);
+// 	    }
+// 	  });
+		
+// 	// End loop of file input elements  
+// 	});
+// // End ready function
+// });
 
 // ------------------------------------------------------ //
 // Control char amount in textarea
@@ -320,11 +425,11 @@ $(document).ready(function() {
 var textlimit = 250;
 
 $('textarea.form-control').keyup(function() {
-  var tlength = $(this).val().length;
-  $(this).val($(this).val().substring(0,textlimit));
-  var tlength = $(this).val().length;
-  remain = parseInt(tlength);
-  $('#remain').text(remain);
+	var tlength = $(this).val().length;
+	$(this).val($(this).val().substring(0,textlimit));
+	var tlength = $(this).val().length;
+	remain = parseInt(tlength);
+	$('#remain').text(remain);
 });
 
 // ------------------------------------------------------ //
@@ -359,53 +464,53 @@ $(document).ready(function() {
 	select.wrap(div);
 
 	$(document).on('click', '.selectMultiple ul li', function(e) {
-    var select = $(this).parent().parent();
+		var select = $(this).parent().parent();
 		var li = $(this);
-    var url = '/user/edit/interests_add';
-    var interestName = li.text();
-    var tokenName =  $('input[name="csrf_name"]').attr('value');
+		var url = '/user/edit/interests_add';
+		var interestName = li.text();
+		var tokenName =  $('input[name="csrf_name"]').attr('value');
 		var tokenValue =  $('input[name="csrf_value"]').attr('value');
 		var data = {"interest" : interestName,"csrf_name" : tokenName,"csrf_value" : tokenValue};
-    // console.log(data);
-    $.post(url ,data, function(response) {
-    	// console.log(response);
-      li.prev().addClass('beforeRemove');
-      li.next().addClass('afterRemove');
-      li.addClass('remove');
-      var a = $('<a />').addClass('notShown').html('<em>' + li.text() + '</em><i></i>').hide().appendTo(select.children('div'));
-      a.slideDown(400, function() {
-      	setTimeout(function() {
-      		a.addClass('shown');
-      		select.children('div').children('span').addClass('hide');
-      		select.find('option:contains(' + li.text() + ')').prop('selected', true);
-      	}, 500);
-      });
-      setTimeout(function() {
-      	if(li.prev().is(':last-child')) {
-      		li.prev().removeClass('beforeRemove');
-      	}
-      	if(li.next().is(':first-child')) {
-      		li.next().removeClass('afterRemove');
-      	}
-      	setTimeout(function() {
-      		li.prev().removeClass('beforeRemove');
-      		li.next().removeClass('afterRemove');
-      	}, 200);
+		// console.log(data);
+		$.post(url ,data, function(response) {
+			// console.log(response);
+			li.prev().addClass('beforeRemove');
+			li.next().addClass('afterRemove');
+			li.addClass('remove');
+			var a = $('<a />').addClass('notShown').html('<em>' + li.text() + '</em><i></i>').hide().appendTo(select.children('div'));
+			a.slideDown(400, function() {
+				setTimeout(function() {
+					a.addClass('shown');
+					select.children('div').children('span').addClass('hide');
+					select.find('option:contains(' + li.text() + ')').prop('selected', true);
+				}, 500);
+			});
+			setTimeout(function() {
+				if(li.prev().is(':last-child')) {
+					li.prev().removeClass('beforeRemove');
+				}
+				if(li.next().is(':first-child')) {
+					li.next().removeClass('afterRemove');
+				}
+				setTimeout(function() {
+					li.prev().removeClass('beforeRemove');
+					li.next().removeClass('afterRemove');
+				}, 200);
 
-      	li.slideUp(400, function() {
-      		li.remove();
-      	});
-      }, 600);
-      location.reload();
-    });
+				li.slideUp(400, function() {
+					li.remove();
+				});
+			}, 600);
+			location.reload();
+		});
 	});
 
 	$(document).on('click', '.selectMultiple > div a', function(e) {
 		var select = $(this).parent().parent();
 		var self = $(this);
-    var url = '/user/edit/interests_delete';
-    var interestName = self.children('em').text();
-    var tokenName =  $('input[name="csrf_name"]').attr('value');
+		var url = '/user/edit/interests_delete';
+		var interestName = self.children('em').text();
+		var tokenName =  $('input[name="csrf_name"]').attr('value');
 		var tokenValue =  $('input[name="csrf_value"]').attr('value');
 		var data = {"interest" : interestName,"csrf_name" : tokenName,"csrf_value" : tokenValue};
 		console.log(data);

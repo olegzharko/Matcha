@@ -272,32 +272,59 @@ body {
   color: #ff7676;
   transition: color 0.4s;
 }
-.wrap-custom-file label:hover {
+/*.wrap-custom-file label:hover {
   -webkit-transform: translateY(-1rem);
   transform: translateY(-1rem);
+}*/
+.wrap-custom-file label:hover {
+  /*opacity: .7;*/
 }
-.wrap-custom-file label:hover span, .wrap-custom-file label:hover .fa {
+.wrap-custom-file label:hover span, 
+.wrap-custom-file label:hover .fa {
   color: #333;
 }
 .wrap-custom-file label.file-ok {
   background-size: cover;
   background-position: center;
 }
-.wrap-custom-file label.file-ok span {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.3rem;
-  font-size: 1.1rem;
-  color: #000;
-  background-color: rgba(255, 255, 255, 0.7);
+.wrap-custom-file label.file-ok:hover {
+  opacity: .8;
 }
+.wrap-custom-file label.file-ok span,
 .wrap-custom-file label.file-ok .fa {
   display: none;
 }
 
-/*  --- textarea styles ---  */
+.close {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  width: 32px;
+  height: 23px;
+  opacity: 0.4;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 20px;
+  width: 2.5px;
+  background-color: #fb565e;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+/*********************************
+        textarea styles
+ *********************************/
 
 textarea.form-control {
 	resize: none;
@@ -307,7 +334,10 @@ form .bright-heading {
 	color: #fb565e !important;
 }
 
-/*  --- select mutiple elements on edit profile page ---  */
+/*********************************
+    select mutiple elements 
+    on edit profile page
+ *********************************/
 
 .selectMultiple {
   width: 100%;

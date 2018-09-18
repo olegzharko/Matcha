@@ -19,8 +19,6 @@ class EditController extends Controller
 	public function getChangeProfile($request, $response)
 	{
 		$allPhoto = Photo::getUserPhoto();
-		if ($allPhoto)
-			$this->container->view->getEnvironment()->addGlobal('allphoto', $allPhoto);
 
 		$userInfo = $this->checker->user();
 		$aboutTable = $this->checker->allAboutUser();
@@ -37,6 +35,9 @@ class EditController extends Controller
 		$edit['username'] = $userInfo->username;
 		$edit['name'] = $userInfo->name;
 		$edit['surname'] = $userInfo->surname;
+		if ($allPhoto) {
+			$edit['photo'] = $allPhoto;
+		}
 		// $edit['interests'] = $this->checker->allValueOfInterests();
 
 		$this->container->view->getEnvironment()->addGlobal('edit', $edit);

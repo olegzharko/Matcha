@@ -40,6 +40,6 @@ $app->group('', function () {
 	
 	$this->get('/user/edit/photo', 'PhotoController:getPhotoProfile')->setName('user.edit.photo');
 	$this->post('/user/edit/photo_delete', 'PhotoController:postDeletePhotoProfile')->setName('user.edit.photo_delete');
-	$this->post('/user/edit/photo', 'PhotoController:postPhotoProfile');
+	$this->post('/user/edit/photo', 'PhotoController:postPhotoProfile')->setName('user.edit.photo_post');
 	$this->get('/search/all', 'SearchController:getAllProfile')->setName('search.all');
 })->add(new AuthMiddleware($container));
