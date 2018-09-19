@@ -6,6 +6,11 @@
 		<div class="col-md-6 col-md-offset-3">
 			<div class="home">
 				<div class="panel panel-default">
+					{% if flash.getMessage('info') %}
+						<div class="alert alert-info">
+							{{ flash.getMessage('info') | first }}
+						</div>
+					{% endif %}
 					<div class="panel-heading">Info profile</div>
 					<div class="panel-body">
 						<form action="{{ path_for('user.edit.info') }}" method="post" autocomplete="off">
