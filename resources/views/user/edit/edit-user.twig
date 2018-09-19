@@ -13,68 +13,62 @@
 						<h3 class="h4">Edit your information</h3>
 					</div>
 					<div class="card-body">
-						<!-- <form method="post" action="{{ path_for('user.edit.photo_post') }}" enctype="multipart/form-data"> -->
-							<div class="row">
-								<div class="col-sm-6">
-									<div class="wrap-custom-file main-image">
-										<input type="file" name="photo" id="image1" accept=".gif, .jpg, .png" />
-										<label for="image1">
-											<span>Select Main Image</span>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="wrap-custom-file main-image">
+									<input type="file" name="photo" id="image1" accept=".gif, .jpg, .png" />
+									<label for="image1">
+										<span>Select Main Image</span>
+										<i class="fa fa-plus-circle"></i>
+										<a href="#" class="close"></a>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="row">
+									<div class="wrap-custom-file">
+										<input type="file" name="photo" id="image2" accept=".gif, .jpg, .png" />
+										<label for="image2">
+											<span>Select Image Two</span>
 											<i class="fa fa-plus-circle"></i>
 											<a href="#" class="close"></a>
 										</label>
 									</div>
 								</div>
-								<div class="col-sm-3">
-									<div class="row">
-										<div class="wrap-custom-file">
-											<input type="file" name="photo" id="image2" accept=".gif, .jpg, .png" />
-											<label for="image2">
-												<span>Select Image Two</span>
-												<i class="fa fa-plus-circle"></i>
-												<a href="#" class="close"></a>
-											</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="wrap-custom-file">
-											<input type="file" name="photo" id="image3" accept=".gif, .jpg, .png" />
-											<label for="image3">
-												<span>Select Image Three</span>
-												<i class="fa fa-plus-circle"></i>
-												<a href="#" class="close"></a>
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="row">
-										<div class="wrap-custom-file">
-											<input type="file" name="photo" id="image4" accept=".gif, .jpg, .png" />
-											<label for="image4">
-												<span>Select Image Four</span>
-												<i class="fa fa-plus-circle"></i>
-												<a href="#" class="close"></a>
-											</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="wrap-custom-file">
-											<input type="file" name="photo" id="image5" accept=".gif, .jpg, .png" />
-											<label for="image5">
-												<span>Select Image Five</span>
-												<i class="fa fa-plus-circle"></i>
-												<a href="#" class="close"></a>
-											</label>
-										</div>
+								<div class="row">
+									<div class="wrap-custom-file">
+										<input type="file" name="photo" id="image3" accept=".gif, .jpg, .png" />
+										<label for="image3">
+											<span>Select Image Three</span>
+											<i class="fa fa-plus-circle"></i>
+											<a href="#" class="close"></a>
+										</label>
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col-sm-4 offset-sm-4">
-								<button type="submit" class="btn btn-primary mt-3">Save selected photo</button>
-							</div> -->
-							<!-- <input type="submit" value="Upload selected photo" class="btn btn-primary mt-3"/> -->
-						<!-- </form> -->
+							<div class="col-sm-3">
+								<div class="row">
+									<div class="wrap-custom-file">
+										<input type="file" name="photo" id="image4" accept=".gif, .jpg, .png" />
+										<label for="image4">
+											<span>Select Image Four</span>
+											<i class="fa fa-plus-circle"></i>
+											<a href="#" class="close"></a>
+										</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="wrap-custom-file">
+										<input type="file" name="photo" id="image5" accept=".gif, .jpg, .png" />
+										<label for="image5">
+											<span>Select Image Five</span>
+											<i class="fa fa-plus-circle"></i>
+											<a href="#" class="close"></a>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="card-body">
 						<form action="{{ path_for('auth.edit.user') }}" method="post">
