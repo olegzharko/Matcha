@@ -29,6 +29,7 @@ class User extends Model
         'name',
         'surname',
         'password',
+        'rating',
     ];
 
     public function setPassword($password)

@@ -129,15 +129,22 @@ $container['upload_directory'] = $_SERVER['DOCUMENT_ROOT'] . 'img';
 $container['SearchController'] = function ($container) {
 	return new \Matcha\Controllers\Search\SearchController($container);
 };
+$container['LikedController'] = function ($container) {
+    return new \Matcha\Controllers\Search\LikedController($container);
+};
+$container['MatchaController'] = function ($container) {
+    return new \Matcha\Controllers\Search\MatchaController($container);
+};
+
 
 $container['csrf'] = function ($container) {
-	return new \Slim\Csrf\Guard;
+		return new \Slim\Csrf\Guard;
 };
 $container['logger'] = function($container) {
-	$logger = new \Monolog\Logger('my_logger');
-	$file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
-	$logger->pushHandler($file_handler);
-	return $logger;
+		$logger = new \Monolog\Logger('my_logger');
+		$file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
+		$logger->pushHandler($file_handler);
+		return $logger;
 };
 /*
  * такое добавление классов через $app->add

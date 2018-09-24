@@ -18,6 +18,7 @@
             name VARCHAR(255) NOT NULL, 
             surname VARCHAR(255) NOT NULL, 
             password VARCHAR(255) NOT NULL,
+            rating INT(11) NULL DEFAULT 0,
             active INT(1) NULL DEFAULT 0,
             created_at TIMESTAMP NULL DEFAULT NULL,
             updated_at TIMESTAMP NULL DEFAULT NULL)";

@@ -1027,7 +1027,7 @@ function createPositionalPseudo( fn ) {
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
 
-			// Match elements found at the specified indexes
+			// Matcha elements found at the specified indexes
 			while ( i-- ) {
 				if ( seed[ (j = matchIndexes[i]) ] ) {
 					seed[j] = !(matches[j] = seed[j]);
@@ -1932,7 +1932,7 @@ Expr = Sizzle.selectors = {
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
 
-					// Match elements unmatched by `matcher`
+					// Matcha elements unmatched by `matcher`
 					while ( i-- ) {
 						if ( (elem = unmatched[i]) ) {
 							seed[i] = !(matches[i] = elem);
@@ -2933,7 +2933,7 @@ var rootjQuery,
 				match = rquickExpr.exec( selector );
 			}
 
-			// Match html or make sure no context is specified for #id
+			// Matcha html or make sure no context is specified for #id
 			if ( match && ( match[ 1 ] || !context ) ) {
 
 				// HANDLE: $(html) -> $(array)

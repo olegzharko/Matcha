@@ -50,36 +50,38 @@ class LikedController extends Controller
 
     public function getLike($request, $response)
     {
-        $validation = $this->validator->validate($request, [
-            'like' => v::notEmpty(),
-            'liked_id' => v::notEmpty(),
-        ]);
 
-        if ($validation->failed()) {
-            $this->flash->addMessage('info', 'Fail');
-            return $response->withRedirect($this->router->pathFor('search.all'));
+            $validation = $this->validator->validate($request, [
+                'like' => v::notEmpty(),
+                'liked_id' => v::notEmpty(),
+            ]);
+
+            if ($validation->failed()) {
+                $this->flash->addMessage('info', 'Fail');
+                return $response->withRedirect($this->router->pathFor('search.all'));
+            }
+
+            $user_id = $_SESSION['user'];
+            $liked_id = $request->getParam('liked_id');
+
+        if (!Likes::where(['user_id' => $user_id, 'liked_id' => $liked_id,])->first()) {
+            Likes::create([
+                'user_id' => $user_id,
+                'liked_id' => $liked_id,
+            ]);
+            $this->isMatcha($user_id, $liked_id);
+            // подбор для рейтинга
+            $user_id = $request->getParam('liked_id');
+
+            $likedUser = User::where('id', $user_id)->first();
+
+            $newRating = $likedUser->rating + 1;
+
+            // нужна новая графа в базе для рейтинка
+            User::where('id', $user_id)->update([
+                'rating' => $newRating,
+            ]);
         }
-
-        $user_id = $_SESSION['user'];
-        $liked_id = $request->getParam('liked_id');
-
-
-        Likes::create([
-            'user_id' => $user_id,
-            'liked_id' => $liked_id,
-        ]);
-        $this->isMatcha($user_id, $liked_id);
-        // подбор для рейтинга
-        $user_id = $request->getParam('liked_id');
-
-        $likedUser = User::where('id', $user_id)->first();
-
-        $newRating = $likedUser->rating + 1;
-
-        // нужна новая графа в базе для рейтинка
-        User::where('id', $user_id)->update([
-            'rating' => $newRating,
-        ]);
 
         return $response->withRedirect($this->router->pathFor('search.all'));
     }

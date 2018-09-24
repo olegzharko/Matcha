@@ -10,7 +10,7 @@ namespace Matcha\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-namespace Matcha\Models\Chat;
+//namespace Matcha\Models\Chat;
 
 class Matcha extends Model
 {

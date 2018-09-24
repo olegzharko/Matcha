@@ -9,7 +9,12 @@
 namespace Matcha\Models;
 
 
-class Chat
-{
+use Illuminate\Database\Eloquent\Model;
 
+class Chat extends Model
+{
+    public static function sendMessage($first, $second, $chat_id)
+    {
+
+    }
 }
