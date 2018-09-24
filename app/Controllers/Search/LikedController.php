@@ -102,24 +102,25 @@ class LikedController extends Controller
         $liked_id = $request->getParam('liked_id');
 
         $this->isUnmatcha($user_id, $liked_id);
+        if (Likes::where(['user_id' => $user_id, 'liked_id' => $liked_id,])->first()) {
+            Likes::where([
+                'user_id' => $user_id,
+                'liked_id' => $liked_id,
+            ])->delete();
 
-        Likes::where([
-            'user_id' => $user_id,
-            'liked_id' => $liked_id,
-        ])->delete();
+            $user_id = $request->getParam('liked_id');
 
-        $user_id = $request->getParam('liked_id');
+            $likedUser = User::where('id', $user_id)->first();
 
-        $likedUser = User::where('id', $user_id)->first();
+            $newRating = $likedUser->rating - 1;
 
-        $newRating = $likedUser->rating - 1;
-
-        // нужна новая графа в базе для рейтинка
-        if ($newRating >= 0)
-        {
-            User::where('id', $user_id)->update([
-                'rating' => $newRating,
-            ]);
+            // нужна новая графа в базе для рейтинка
+            if ($newRating >= 0)
+            {
+                User::where('id', $user_id)->update([
+                    'rating' => $newRating,
+                ]);
+            }
         }
 
         return $response->withRedirect($this->router->pathFor('search.all'));
