@@ -131,13 +131,13 @@ $container['SearchController'] = function ($container) {
 };
 
 $container['csrf'] = function ($container) {
-		return new \Slim\Csrf\Guard;
+	return new \Slim\Csrf\Guard;
 };
 $container['logger'] = function($container) {
-		$logger = new \Monolog\Logger('my_logger');
-		$file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
-		$logger->pushHandler($file_handler);
-		return $logger;
+	$logger = new \Monolog\Logger('my_logger');
+	$file_handler = new \Monolog\Handler\StreamHandler('../logs/app.log');
+	$logger->pushHandler($file_handler);
+	return $logger;
 };
 /*
  * такое добавление классов через $app->add
