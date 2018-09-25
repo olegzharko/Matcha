@@ -68,8 +68,8 @@ $container['view'] = function ($container) {
 	 * в котором указаны возможности router и request->getUri() что лежат в контейнере
 	 */
 	$view->addExtension(new \Slim\Views\TwigExtension(
-			$container->router,
-			$container->request->getUri()
+		$container->router,
+		$container->request->getUri()
 	));
 	/* addGlobal это чисто Twig-кий функционал и он определяет по каким ключевым словам будет доступен 
 	 * тот или иной метод
@@ -81,8 +81,8 @@ $container['view'] = function ($container) {
 	 * а и на стороне представления
 	 * */
 	$view->getEnvironment()->addGlobal('auth', [
-			'check' => $container->checker->check(),
-			'user' => $container->checker->user(),
+		'check' => $container->checker->check(),
+		'user' => $container->checker->user(),
 	]);
 	/* добавить в объект view набор возможностей flash чтобы использовать его на шаблонах twig */
 	$view->getEnvironment()->addGlobal('flash', $container->flash);
@@ -130,12 +130,11 @@ $container['SearchController'] = function ($container) {
 	return new \Matcha\Controllers\Search\SearchController($container);
 };
 $container['LikedController'] = function ($container) {
-    return new \Matcha\Controllers\Search\LikedController($container);
+  return new \Matcha\Controllers\Search\LikedController($container);
 };
 $container['MatchaController'] = function ($container) {
-    return new \Matcha\Controllers\Search\MatchaController($container);
+  return new \Matcha\Controllers\Search\MatchaController($container);
 };
-
 
 $container['csrf'] = function ($container) {
 		return new \Slim\Csrf\Guard;
