@@ -195,6 +195,10 @@ $(document).ready(function() {
 				success: function(data, textStatus, jqXHR)
 				{
 					console.log('success');
+					// console.log(data);
+					var obj = JSON.parse(data);
+					$('input[name="csrf_name"]').val(obj.csrf_name);
+					$('input[name="csrf_value"]').val(obj.csrf_value);
 					// STOP LOADING SPINNER
 					$label
 						.addClass('file-ok')

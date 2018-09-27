@@ -43,9 +43,11 @@ class PhotoController extends Controller
 			$uploadedFile = $uploadedFiles['photo'];
 			if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
 				$filename = $this->moveUploadedFile($directory, $uploadedFile, $userdir);
-				$response->write('uploaded ' . $filename . '<br/>');
+				// $response->write('uploaded ' . $filename . '<br/>');
 			}
 		}
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$response->write(json_encode($ajax_csrf));
 		// handle multiple inputs with the same key
 	    // foreach ($uploadedFiles['photo'] as $uploadedFile) {
 	    //     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
