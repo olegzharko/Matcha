@@ -46,6 +46,9 @@ class PhotoController extends Controller
 				// $response->write('uploaded ' . $filename . '<br/>');
 			}
 		}
+		/*
+		** send csrf values for ajax request
+		*/
 		$ajax_csrf = $request->getAttribute('ajax_csrf');
 		$response->write(json_encode($ajax_csrf));
 		// handle multiple inputs with the same key
@@ -65,10 +68,18 @@ class PhotoController extends Controller
 		$photoWithTokenLikeIndex = array_keys($photoWithTokenLikeKey);
 		$src = $photoWithTokenLikeIndex['0'];
 		$src = preg_replace('/_/', '.', $src);
-		$src = str_replace('http://127.0.0.1:8800', '', $src);
+		/*
+		** LINE BELOW NEED TO BE FIXED 
+		*/
+		// $src = str_replace('http://127.0.0.1:8800', '', $src);
+		$src = str_replace('http://localhost:8800', '', $src);
+		// echo $src;
 		Photo::delUserPhoto($src);
-		echo $src;
-		// return $response->withRedirect($this->router->pathFor('auth.edit.user'));
+		/*
+		** send csrf values for ajax request
+		*/
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$response->write(json_encode($ajax_csrf));
 	}
 }
 

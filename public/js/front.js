@@ -176,12 +176,12 @@ $(document).ready(function() {
 			// if ( fileName ) {
 				// var url = '/user/edit/photo';
 			var data = new FormData();
-			var tokenName =  $('input[name="csrf_name"]').attr('value');
-			var tokenValue =  $('input[name="csrf_value"]').attr('value');
+			var tokenName =  $('input[name="csrf_name"]');
+			var tokenValue =  $('input[name="csrf_value"]');
 			// var data = {"photo" : tmppath,"csrf_name" : tokenName,"csrf_value" : tokenValue};
 			data.append("photo", tmppath);//$('input[type=file]')[0].files[0]);
-			data.append("csrf_name", tokenName);
-			data.append("csrf_value", tokenValue);
+			data.append("csrf_name", tokenName.attr('value'));
+			data.append("csrf_value", tokenValue.attr('value'));
 			// console.log(data);
 			$.ajax({
 				url: '/user/edit/photo',
@@ -197,8 +197,8 @@ $(document).ready(function() {
 					console.log('success');
 					// console.log(data);
 					var obj = JSON.parse(data);
-					$('input[name="csrf_name"]').val(obj.csrf_name);
-					$('input[name="csrf_value"]').val(obj.csrf_value);
+					tokenName.val(obj.csrf_name);
+					tokenValue.val(obj.csrf_value);
 					// STOP LOADING SPINNER
 					$label
 						.addClass('file-ok')
@@ -229,11 +229,11 @@ $(document).ready(function() {
 			imgSrc = imgSrc.replace('url(','').replace(')','').replace(/\"/gi, "");
 			// console.log(imgSrc);
 			var data = new FormData();
-			var tokenName =  $('input[name="csrf_name"]').attr('value');
-			var tokenValue =  $('input[name="csrf_value"]').attr('value');
+			var tokenName =  $('input[name="csrf_name"]');
+			var tokenValue =  $('input[name="csrf_value"]');
 			data.append(imgSrc, "delphoto");
-			data.append("csrf_name", tokenName);
-			data.append("csrf_value", tokenValue);
+			data.append("csrf_name", tokenName.attr('value'));
+			data.append("csrf_value", tokenValue.attr('value'));
 			// console.log(data);
 			$.ajax({
 				url: '/user/edit/photo_delete',
@@ -247,6 +247,9 @@ $(document).ready(function() {
 				success: function(data, textStatus, jqXHR)
 				{
 					console.log(data);
+					var obj = JSON.parse(data);
+					tokenName.val(obj.csrf_name);
+					tokenValue.val(obj.csrf_value);
 					$label.removeClass('file-ok')
 					.css('background-image', '');
 					$labelText.text(labelDefault);
@@ -267,35 +270,6 @@ $(document).ready(function() {
 	});
 	// End ready function
 });
-
-// $(document).ready(function() {
-// 	$('input[type="file"]').each(function(){
-// 	  // Refs
-// 	  var $file = $(this),
-// 	      $label = $file.next('label'),
-// 	      $labelText = $label.find('span'),
-// 	      labelDefault = $labelText.text();
-		
-// 	  // When a new file is selected
-// 	  $file.on('change', function(event){
-// 	    var fileName = $file.val().split( '\\' ).pop(),
-// 	        tmppath = URL.createObjectURL(event.target.files[0]);
-// 	    //Check successfully selection
-// 			if( fileName ){
-// 	      $label
-// 	        .addClass('file-ok')
-// 	        .css('background-image', 'url(' + tmppath + ')');
-// 				$labelText.text(fileName);
-// 	    }else{
-// 	      $label.removeClass('file-ok');
-// 				$labelText.text(labelDefault);
-// 	    }
-// 	  });
-		
-// 	// End loop of file input elements  
-// 	});
-// // End ready function
-// });
 
 // ------------------------------------------------------ //
 // Control char amount in textarea
@@ -341,14 +315,21 @@ $(document).ready(function() {
 
 	select.wrap(div);
 
+	/*
+	** add interest
+	*/
 	$(document).on('click', '.selectMultiple ul li', function(e) {
 		var select = $(this).parent().parent();
 		var li = $(this);
 		var url = '/user/edit/interests_add';
 		var interestName = li.text();
-		var tokenName =  $('input[name="csrf_name"]').attr('value');
-		var tokenValue =  $('input[name="csrf_value"]').attr('value');
-		var data = {"interest" : interestName,"csrf_name" : tokenName,"csrf_value" : tokenValue};
+		var tokenName = $('input[name="csrf_name"]');
+		var tokenValue = $('input[name="csrf_value"]');
+		var data = {
+			"interest" : interestName,
+			"csrf_name" : tokenName.attr('value'),
+			"csrf_value" : tokenValue.attr('value')
+		};
 		// console.log(data);
 		$.post(url ,data, function(response) {
 			// console.log(response);
@@ -379,19 +360,31 @@ $(document).ready(function() {
 					li.remove();
 				});
 			}, 600);
-			location.reload();
+			/*
+			** handel respond from server
+			*/
+			console.log(response);
+			var obj = JSON.parse(response);
+			tokenName.val(obj.csrf_name);
+			tokenValue.val(obj.csrf_value);
 		});
 	});
 
+	/*
+	** remove interest
+	*/
 	$(document).on('click', '.selectMultiple > div a', function(e) {
 		var select = $(this).parent().parent();
 		var self = $(this);
 		var url = '/user/edit/interests_delete';
 		var interestName = self.children('em').text();
-		var tokenName =  $('input[name="csrf_name"]').attr('value');
-		var tokenValue =  $('input[name="csrf_value"]').attr('value');
-		var data = {"interest" : interestName,"csrf_name" : tokenName,"csrf_value" : tokenValue};
-		console.log(data);
+		var tokenName =  $('input[name="csrf_name"]');
+		var tokenValue =  $('input[name="csrf_value"]');
+		var data = {
+			"interest" : interestName,
+			"csrf_name" : tokenName.attr('value'),
+			"csrf_value" : tokenValue.attr('value')
+		};
 		$.post(url ,data, function(response) {
 			self.removeClass().addClass('remove');
 			select.addClass('open');
@@ -419,7 +412,13 @@ $(document).ready(function() {
 					})
 				}, 300);
 			}, 400);
-			location.reload();
+			/*
+			** handel respond from server
+			*/
+			console.log(response);
+			var obj = JSON.parse(response);
+			tokenName.val(obj.csrf_name);
+			tokenValue.val(obj.csrf_value);
 		});
 	});
 

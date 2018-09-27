@@ -15,6 +15,7 @@ class Photo extends Model
 		'user_id',
 		'photo_src',
 	];
+	
 	public static function setUserPhoto($src)
 	{
 		Photo::create([
@@ -22,10 +23,12 @@ class Photo extends Model
 			'photo_src' => $src,
 		]);
 	}
+
 	public static function delUserPhoto($src)
 	{
 		Photo::where('photo_src', $src)->delete();
 	}
+
 	public static function getUserPhoto()
 	{
 		$allPhoto = Photo::get();

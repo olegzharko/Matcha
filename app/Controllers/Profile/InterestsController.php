@@ -67,7 +67,11 @@ class InterestsController extends Controller
 		$allRowCurrentInterests = InterestList::where('interest', $interest)->first();
 	   // r($allRowCurrentInterests->id);die();
 		UserInterest::where('interest_id', $allRowCurrentInterests->id)->delete();
-
+		/*
+		** send csrf values for ajax request
+		*/
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$response->write(json_encode($ajax_csrf));
 		// return $response->withRedirect($this->router->pathFor('user.edit.interests'));
 	}
 
@@ -92,7 +96,11 @@ class InterestsController extends Controller
 				'interest_id' => $allRowCurrentInterests->id,
 			]);
 		}
-
+		/*
+		** send csrf values for ajax request
+		*/
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$response->write(json_encode($ajax_csrf));
 		// return $response->withRedirect($this->router->pathFor('user.edit.interests'));
 	}
 }
