@@ -76,7 +76,7 @@ class CheckController
         $user = User::where('email', $email)->first();
 
         if (!$user) {
-            $this->flash->addMessage('error', 'Email not found');
+            // $this->flash->addMessage('error', 'Email not found');
             return false;
         }
 
@@ -84,8 +84,9 @@ class CheckController
             $_SESSION['user'] = $user->id;
             return true;
         }
-        else
+        else {
             $_SESSION['errors']['password']['0'] = "wrong password";
+        }
 
         return false;
     }

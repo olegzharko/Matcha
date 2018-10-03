@@ -34,8 +34,8 @@ class AuthController extends Controller
          * */
         $user = User::where('email', $request->getParam('email'))->first();
 
-        if ($user->active == 0) {
-            $this->flash->addMessage('error', 'Check your email and press confirm registration!');
+        if ($user->active === 0) {
+            $this->flash->addMessage('error', 'Please finish your registration. Check your mail box.');
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 

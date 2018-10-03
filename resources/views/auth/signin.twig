@@ -21,21 +21,26 @@
 					<div class="form d-flex align-items-center">
 						<div class="content">
 							<form action="{{ path_for('auth.signin') }}" method="post" class="form-validate">
+								{% if errors.email %}
+									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
+									<div class="alert alert-danger">
+										{% if errors.email %}
+											{{ errors.email | first }}
+										{% endif %}
+									</div>
+								{% endif %}
+								{% if flash.getMessage('error') %}
+									<div class="alert alert-danger">
+										{{ flash.getMessage('error') | first }}
+									</div>
+								{% endif %}
 								<div class="form-group">
 									<input id="login-email" type="emial" name="email" required data-msg="Please enter your email" class="input-material">
 									<label for="login-email" class="label-material">Email</label>
-									{% if errors.email %}
-										{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-										<span class="help-block">{{ errors.email | first }}</span>
-									{% endif %}
 								</div>
 								<div class="form-group">
 									<input id="login-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
 									<label for="login-password" class="label-material">Password</label>
-									{% if errors.password %}
-									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-									<span class="help-block">{{ errors.password | first }}</span>
-								{% endif %}
 								</div>
 								<button type="submit" id="login" href="index.html" class="btn btn-primary">Login</button>
 								{{ csrf.field | raw }}{# raw скроет строку #}
