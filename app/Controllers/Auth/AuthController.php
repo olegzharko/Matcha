@@ -81,8 +81,10 @@ class AuthController extends Controller
         $password1 = $request->getParam('password');
         $password2 = $request->getParam('password_repeat');
 
-        if ($this->checker->comparePasswords($password1, $password2, $response))
+        if ($this->checker->comparePasswords($password1, $password2, $response)) {
+            $this->flash->addMessage('error', 'Passwords does not match');
             return $response->withRedirect($this->router->pathFor('auth.signup'));
+        }
 
        /* в calss Validator было добавлено библиотеку Respect/Validation
         * мы используем все статические методы данной библиотеки
@@ -105,7 +107,6 @@ class AuthController extends Controller
             'uniq_id' => md5(uniqid(rand(),time())),
         ]);
 
-
         /* так как человек что регестрируется по идеи должен автоматически зайти на сайт
          * если он прошел всю верификацию
          * то введенные им данные следует передать в функцию входа юзера
@@ -118,8 +119,8 @@ class AuthController extends Controller
          * нам надо указать точно куда надо перейти
          * */
         $this->sendEmail->sendEmail($user->email, $user->username, $checkEmail->uniq_id);
-
-        return $response->withRedirect($this->router->pathFor('hello'));
+        $this->flash->addMessage('global', 'Please check your email to confirm regestration');
+        return $response->withRedirect($this->router->pathFor('auth.signup'));
     }
 
     public function getSignOut($request, $response)

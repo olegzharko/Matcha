@@ -21,59 +21,61 @@
 					<div class="form d-flex align-items-center">
 						<div class="content">
 							<form action="{{ path_for('auth.signup') }}" method="post" class="form-validate">
-
+								{% if errors %}
+									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
+									<div class="alert alert-danger">
+									  {% if errors.username %}
+											{{ errors.username | first }}<br/>
+										{% endif %}
+										{% if errors.email %}
+											{{ errors.email | first }}<br/>
+										{% endif %}
+										{% if errors.password %}
+											{{ errors.password | first }}<br/>
+										{% endif %}
+										{% if errors.password_repeat %}
+											{{ errors.password_repeat | first }}
+										{% endif %}
+									</div>
+								{% endif %}
+								{% if flash.getMessage('error') %}
+									<div class="alert alert-danger">
+										{{ flash.getMessage('error') | first }}
+									</div>
+								{% endif %}
+								{% if flash.getMessage('global') %}
+									<div class="alert alert-success">
+										<strong>Almost done! </strong>{{ flash.getMessage('global') | first }}
+									</div>
+								{% endif %}
 								<div class="form-group">
 									<input id="register-username" type="text" name="username" required data-msg="Please enter your username" class="input-material">
 									<label for="register-username" class="label-material">User Name</label>
-									{% if errors.username %}
-										{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-										<span class="help-block">{{ errors.username | first }}</span>
-									{% endif %}
 								</div>
 
 								<div class="form-group">
 									<input id="register-firstname" type="text" name="name" required data-msg="Please enter your first name" class="input-material">
 									<label for="register-firstname" class="label-material">First Name</label>
-									{% if errors.username %}
-										{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-										<span class="help-block">{{ errors.username | first }}</span>
-									{% endif %}
 								</div>
 
 								<div class="form-group">
 									<input id="register-secondname" type="text" name="surname" required data-msg="Please enter your second name" class="input-material">
 									<label for="register-secondname" class="label-material">Second Name</label>
-									{% if errors.username %}
-										{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-										<span class="help-block">{{ errors.username | first }}</span>
-									{% endif %}
 								</div>
 
 								<div class="form-group">
 									<input id="register-email" type="emial" name="email" required data-msg="Please enter a valid email address" class="input-material">
-									<label for="register-email" class="label-material">Email Address      </label>
-									{% if errors.email %}
-									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-									<span class="help-block">{{ errors.email | first }}</span>
-								{% endif %}
+									<label for="register-email" class="label-material">Email Address</label>
 								</div>
 
 								<div class="form-group">
 									<input id="register-password" type="password" name="password" required data-msg="Please enter your password" class="input-material">
-									<label for="register-password" class="label-material">Password        </label>
-										{% if errors.password %}
-										{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-										<span class="help-block">{{ errors.password | first }}</span>
-									{% endif %}
+									<label for="register-password" class="label-material">Password</label>
 								</div>
 
 								<div class="form-group">
 									<input id="register-repeat-password" type="password" name="password_repeat" required data-msg="Please repeat your password" class="input-material">
-									<label for="register-repeat-password" class="label-material">Repeat Password        </label>
-									{% if errors.password %}
-									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
-									<span class="help-block">{{ errors.password_repeat | first }}</span>
-								{% endif %}
+									<label for="register-repeat-password" class="label-material">Repeat Password</label>
 								</div>
 
 								<div class="form-group">

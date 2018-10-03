@@ -50,12 +50,13 @@ class PasswordController extends Controller
         $password1 = $request->getParam('password_new');
         $password2 = $request->getParam('password_repeat');
 
-        if ($this->checker->comparePasswords($password1, $password2, $response))
+        if ($this->checker->comparePasswords($password1, $password2, $response)) {
             return $response->withRedirect($this->router->pathFor('auth.password.change'));
+        }
 
         $this->checker->user()->setPassword($request->getParam('password_new'));
 
-        // $this->flash->addMessage('info', 'Your password was changed');
+        $this->flash->addMessage('info', 'Your password was changed');
         return $response->withRedirect($this->router->pathFor('home'));
     }
 }

@@ -33,7 +33,7 @@ class Validator
 
         if ($this->errors) {
             foreach ($this->errors as $key => $value) {
-                    $this->errors[$key] = preg_replace($pattern, $replacement, $value);
+                $this->errors[$key] = preg_replace($pattern, $replacement, $value);
             }
         }
     }
