@@ -28,11 +28,12 @@ class SendEmailController
                         <title>HTML email</title>
                         </head>
                         <body style=\"background: linear-gradient(to bottom right,#84afff 44%,#e4b0ff 100%);padding: 40px;color: white;min-height: 430px;\">
-                            <h2>Hello $username and Welcome to Camagru World</h2>
+                            <h2>Hello $username and Welcome to Matcha</h2>
+                            <h3>Just click the button below to activate your account</h3>
                             <form method=\"post\" action=\"$confirmPage\">
                                 <input type=\"hidden\" name=\"uniq_id\" value=\"$uniqid\">
                                 <input type=\"hidden\" name=\"email\" value=\"$email\">
-                                <button>Confirm</button>
+                                <button type=\"submit\">Confirm</button>
                                 <input type=\"hidden\" name=\"$tokeNameKey\" value=\"$tokenName\">
                                 <input type=\"hidden\" name=\"$tokenValueKey\" value=\"$tokenValue\">
                             </form>

@@ -42,8 +42,8 @@ class ActivateController extends Controller
 
         if ($user->active == 1) {
             $_SESSION['user'] = $user->id;
-            $this->flash->addMessage('info', 'Welcome my friend');
-            return $response->withRedirect($this->router->pathFor('user.edit.info'));
+            // $this->flash->addMessage('info', 'Welcome my friend');
+            return $response->withRedirect($this->router->pathFor('auth.edit.user'));
         }
     }
 }

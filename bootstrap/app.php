@@ -6,7 +6,7 @@ use \Respect\Validation\Validator as v;
 // session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../connect/create_table.php'; // DB
-require_once __DIR__ . '/../php-ref-master/ref.php'; // для тестов
+// require_once __DIR__ . '/../php-ref-master/ref.php'; // для тестов
 
 /* все настройки в отдельном файле потом ложаться в Slim __construct */
 $settings = require_once __DIR__ . '/../conf/settings.php';
