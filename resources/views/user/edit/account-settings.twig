@@ -7,7 +7,7 @@
 <section class="forms">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-8 offset-lg-2">
+			<div class="col-lg-6 offset-lg-3">
 				<div class="card">
 					
 					<div class="card-header">
@@ -40,6 +40,23 @@
 
 					<div class="card-body">
 						<form class="form-horizontal" action="{{ path_for('auth.password.change') }}" method="post">
+
+							{% if errors.email %}
+								<div class="alert alert-danger">
+									{{ errors.email | first }}
+								</div>
+							{% endif %}
+							{% if flash.getMessage('error') %}
+								<div class="alert alert-danger">
+									{{ flash.getMessage('error') | first }}
+								</div>
+							{% endif %}
+							{% if flash.getMessage('info') %}
+								<div class="alert alert-info">
+									{{ flash.getMessage('info') | first }}
+								</div>
+							{% endif %}
+
 							<div class="form-group row mt-3">
 								<label class="col-sm-3 form-control-label">Email</label>
 								<div class="col-sm-9">

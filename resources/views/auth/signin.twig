@@ -24,9 +24,7 @@
 								{% if errors.email %}
 									{#  first - это показать первую строку с массива email  по сосоянию ошибки #}
 									<div class="alert alert-danger">
-										{% if errors.email %}
-											{{ errors.email | first }}
-										{% endif %}
+										{{ errors.email | first }}
 									</div>
 								{% endif %}
 								{% if flash.getMessage('error') %}
