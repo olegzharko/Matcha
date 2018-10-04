@@ -14,7 +14,11 @@ $app->group('', function () {
 
 	$this->get('/auth/signin', 'AuthController:getSignIn')->setName('auth.signin');
 	$this->post('/auth/signin', 'AuthController:postSignIn');
-	// $this->get('/hello', 'HomeController:hello')->setName('hello');
+	/*
+	* routes for reset password request
+	*/
+	$this->get('/auth/password/forgot', 'AuthController:getResetPassword')->setName('auth.password.forgot');
+	$this->post('/auth/password/forgot', 'AuthController:postResetPassword');
 
 	$this->post('/activate', 'ActivateController:activate');
 })->add(new GuestMiddleware($container));

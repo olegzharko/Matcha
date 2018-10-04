@@ -15,8 +15,8 @@ class SendEmailController
     public function sendEmail($email, $username, $uniqid)
     {
         $confirmPage = 'http://'.$_SERVER['HTTP_HOST'] . "/activate";
-        $from_name = "Camagru Co";
-        $from_mail = "olegzharko@gmail.com";
+        $from_name = "[Matcha] ";
+        $from_mail = "<noreply@matcha.com>";
         $mail_subject = "test mail fun";
         $tokeNameKey = trim($this->container->csrf->getTokenNameKey());
         $tokenName = trim($this->container->csrf->getTokenName());
@@ -37,6 +37,52 @@ class SendEmailController
                                 <input type=\"hidden\" name=\"$tokeNameKey\" value=\"$tokenName\">
                                 <input type=\"hidden\" name=\"$tokenValueKey\" value=\"$tokenValue\">
                             </form>
+                        </body>
+                        </html>
+                        ";
+        $encoding = "utf-8";
+
+        // Set preferences for Subject field
+        $subject_preferences = array(
+            "input-charset" => $encoding,
+            "output-charset" => $encoding,
+            "line-length" => 76,
+            "line-break-chars" => "\r\n"
+        );
+
+        // Set mail header
+        $header = "Content-type: text/html; charset=".$encoding." \r\n";
+        $header .= "From: ".$from_name." <".$from_mail."> \r\n";
+        $header .= "MIME-Version: 1.0 \r\n";
+        $header .= "Content-Transfer-Encoding: 8bit \r\n";
+        $header .= "Date: ".date("r (T)")." \r\n";
+        $header .= iconv_mime_encode("Subject", $mail_subject, $subject_preferences);
+
+        // Send mail
+        mail($email, $mail_subject, $mail_message, $header);
+    }
+
+    public function sendNewPasswordEmail($email, $username, $password)
+    {
+        // $confirmPage = 'http://'.$_SERVER['HTTP_HOST'] . "/activate";
+        $from_name = "[Matcha 42] ";
+        $from_mail = "<noreply@matcha42.com>";
+        $mail_subject = "[Matcha 42] Please reset your password";
+        $mail_message = "
+                        <html>
+                        <head>
+                        <title>HTML email</title>
+                        </head>
+                        <body style=\"background: linear-gradient(to bottom right,#84afff 44%,#e4b0ff 100%);padding: 40px;color: white;min-height: 430px;\">
+                            <h3>We heard that you lost your Matcha password. Sorry about that!</h3>
+                            <p>But don't worry! Here is you new password that was randomly generated.</p>
+                            <p>------------------------</p>
+                            <p>Email: ".$email."</p>
+                            <p>Password: ".$password."</p>
+                            <p>------------------------</p>
+                            </br>
+                            <p>Thanks,</p>
+                            <p>your friends at Matcha 42.</p>
                         </body>
                         </html>
                         ";

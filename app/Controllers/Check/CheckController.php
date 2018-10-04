@@ -20,8 +20,9 @@ class CheckController
     }
     public function user()
     {
-        if (isset($_SESSION['user']))
+        if (isset($_SESSION['user'])) {
             return User::find($_SESSION['user']);
+        }
     }
 
     public function allUserInterests()
@@ -103,6 +104,20 @@ class CheckController
             // $_SESSION['errors']['password_new']['0'] = "Different password";
             return 1;
         }
+    }
+
+    /*
+    ** Generate a random string, using a cryptographically secure 
+    ** pseudorandom number generator (random_int)
+    */
+    function random_str($length) {
+        $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $str = '';
+        $keyspaceLength = strlen($keyspace) - 1; //put the length -1 in cache
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $keyspace[random_int(0, $keyspaceLength)];
+        }
+        return $str;
     }
 
     public function logout()

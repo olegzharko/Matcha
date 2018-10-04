@@ -56,7 +56,7 @@ class PasswordController extends Controller
 
         $this->checker->user()->setPassword($request->getParam('password_new'));
 
-        $this->flash->addMessage('info', 'Your password was changed');
+        // $this->flash->addMessage('info', 'Your password was changed');
         return $response->withRedirect($this->router->pathFor('home'));
     }
 }
