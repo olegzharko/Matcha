@@ -85,4 +85,25 @@ class PasswordController extends Controller
 		$this->flash->addMessage('info', 'Your account was updated');
 		return $response->withRedirect($this->router->pathFor('auth.password.change'));
 	}
+
+	public function postResetPassword($request, $response) {
+		$validation = $this->validator->validate($request, [
+			'email' => v::noWhitespace()->notEmpty()->email(),
+		]);
+		if ($validation->failed()) {
+			return $response->withRedirect($this->router->pathFor('auth.password.change'));
+		}
+
+		$user = User::where('email', $request->getParam('email'))->first();
+		if (!$user) {
+			$this->flash->addMessage('error', 'Can\'t find that email, sorry');
+			return $response->withRedirect($this->router->pathFor('auth.password.change'));
+		}
+
+		$new_password = $this->checker->random_str(10);
+		$user->setPassword($new_password);
+		$this->sendEmail->sendNewPasswordEmail($user->email, $user->username, $new_password);
+		$this->flash->addMessage('info', 'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.');
+		return $response->withRedirect($this->router->pathFor('auth.password.change'));
+	}
 }

@@ -7,29 +7,46 @@ use Matcha\Middleware\GuestMiddleware;
  */
 $app->group('', function () {
 	/*
-	 * setName связан, с twig файлами path_for и return $response->withRedirect($this->router->path('home'));
-	 * */
+	** sign up routes
+	*/
 	$this->get('/auth/signup', 'AuthController:getSignUp')->setName('auth.signup');
 	$this->post('/auth/signup', 'AuthController:postSignUp');
-
+	/*
+	** sign in routes
+	*/
 	$this->get('/auth/signin', 'AuthController:getSignIn')->setName('auth.signin');
 	$this->post('/auth/signin', 'AuthController:postSignIn');
 	/*
-	* routes for reset password request
+	** reset password routes
 	*/
 	$this->get('/auth/password/forgot', 'AuthController:getResetPassword')->setName('auth.password.forgot');
 	$this->post('/auth/password/forgot', 'AuthController:postResetPassword');
-
+	/*
+	** activate account routes
+	*/
 	$this->post('/activate', 'ActivateController:activate');
 })->add(new GuestMiddleware($container));
 
 $app->group('', function () {
+	/*
+	** user home page
+	*/
 	$this->get('/', 'HomeController:index')->setName('home');
-	
+	/*
+	** sign out
+	*/
 	$this->get('/auth/signout', 'AuthController:getSignOut')->setName('auth.signout');
-
+	/*
+	** account settings (change email and password)
+	*/
 	$this->get('/auth/password/change', 'PasswordController:getChangePassword')->setName('auth.password.change');
 	$this->post('/auth/password/change', 'PasswordController:postChangePassword');
+	/*
+	** account settings (reset password)
+	*/
+	$this->post('/auth/password/reset', 'PasswordController:postResetPassword');
+
+
 
 	$this->get('/auth/edit/user', 'EditController:getChangeProfile')->setName('auth.edit.user');
 	$this->post('/auth/edit/user', 'EditController:postChangeProfile');

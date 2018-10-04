@@ -443,33 +443,48 @@ if (next && prev && slider) {
 	let shift = 0;
 
 	next.addEventListener('click', () => {
-	  if (current < elementsCount) {
-	    slider.classList.toggle('move');
-	    shift += slideWidth;
-	    slider.style.transform = `translateX(-${shift}px)`;
-	    current++;
-	  } else {
-	    shift = 0;
-	    current = 1;
-	    slider.style.transform = `translateX(${shift}px)`;
-	  };
+		if (current < elementsCount) {
+			slider.classList.toggle('move');
+			shift += slideWidth;
+			slider.style.transform = `translateX(-${shift}px)`;
+			current++;
+		} else {
+			shift = 0;
+			current = 1;
+			slider.style.transform = `translateX(${shift}px)`;
+		};
 	});
 
 	prev.addEventListener('click', () => {
-	  if (current > 1) {
-	    slider.classList.toggle('move');
-	    shift -= slideWidth;
-	    current--;
-	    slider.style.transform = `translateX(-${shift}px)`;
-	  } else if (current === 1) {
-	    shift = elementsCount * slideWidth - slideWidth;
-	    slider.classList.toggle('move');
-	    slider.style.transform = `translateX(-${shift}px)`;
-	    current = elementsCount;
-	  };
+		if (current > 1) {
+			slider.classList.toggle('move');
+			shift -= slideWidth;
+			current--;
+			slider.style.transform = `translateX(-${shift}px)`;
+		} else if (current === 1) {
+			shift = elementsCount * slideWidth - slideWidth;
+			slider.classList.toggle('move');
+			slider.style.transform = `translateX(-${shift}px)`;
+			current = elementsCount;
+		};
 	});
 }
 
+// ------------------------------------------------------ //
+// Handel modal form to reset password
+// ------------------------------------------------------ //
+
+// $(document).ready(function () {
+// 	$('form #reset-passw').submit(function(evt) {
+// 		evt.preventDefault();
+// 		var url = $(this).attr("action");
+// 		var data = $(this).serialize();
+// 		 console.log(data);
+// 		$.post(url,data,function(response) {
+// 			$('.modal-body').html(response);
+// 		});
+// 	});
+// });
 
 
 
