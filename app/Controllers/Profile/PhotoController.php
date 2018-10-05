@@ -2,20 +2,60 @@
 
 namespace Matcha\Controllers\Profile;
 
-use Matcha\Controllers\Controller;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\UploadedFile;
 use Matcha\Models\Photo;
+use Matcha\Controllers\Controller;
 
 class PhotoController extends Controller
 {
-	public function getPhotoProfile(Request $request, Response $response)
+	public function postUploadPhoto(Request $request, Response $response)
 	{
-		$allPhoto = Photo::getUserPhoto();
-		if ($allPhoto)
-			$this->container->view->getEnvironment()->addGlobal('allphoto', $allPhoto);
-		return $this->view->render($response, 'user/edit/photo.twig');
+		$userdir = $_SESSION['user'];
+		$directory = $this->upload_directory . "/" . $userdir;
+		if (!file_exists($directory)) {
+			mkdir($directory);
+		}
+		$uploadedFiles = $request->getUploadedFiles();
+		// handle single input with single file upload
+		if ($uploadedFiles)
+		{
+			$uploadedFile = $uploadedFiles['photo'];
+			if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+				$filename = $this->moveUploadedFile($directory, $uploadedFile, $userdir);
+			}
+		}
+		/*
+		** send csrf values for ajax request
+		*/
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$respond_json = [$ajax_csrf, 
+			'file_name' => $filename];
+		// var_dump($respond_json);
+		$response->write(json_encode($respond_json));
+	}
+
+	public function postDeletePhoto($request, $response)
+	{
+		$photoWithTokenLikeKey = $request->getParsedBody();
+		$photoWithTokenLikeIndex = array_keys($photoWithTokenLikeKey);
+		$src = $photoWithTokenLikeIndex['0'];
+		$src = preg_replace('/_/', '.', $src);
+		/*
+		** TRY TO FIGURE OUT HOW TO FIX THE LINE BELOW 
+		*/
+		// $src = str_replace('http://127.0.0.1:8800', '', $src);
+		$src = str_replace('http://localhost:8800', '', $src);
+		// echo $src;
+		Photo::delUserPhoto($src);
+		$src = $_SERVER["DOCUMENT_ROOT"].DIRECTORY_SEPARATOR.$src;
+		unlink($src);
+		/*
+		** send csrf values for ajax request
+		*/
+		$ajax_csrf = $request->getAttribute('ajax_csrf');
+		$response->write(json_encode($ajax_csrf));
 	}
 
 	public function moveUploadedFile($directory, UploadedFile $uploadedFile, $userdir)
@@ -27,59 +67,7 @@ class PhotoController extends Controller
 		Photo::setUserPhoto($photo_src);
 		$src = $directory . DIRECTORY_SEPARATOR . $filename;
 		$uploadedFile->moveTo($src);
-		return $filename;
-	}
-
-	public function postPhotoProfile(Request $request, Response $response)
-	{
-		$userdir = $_SESSION['user'];
-		$directory = $this->upload_directory . "/" . $userdir;
-		if ( !file_exists($directory))
-			mkdir($directory);
-		$uploadedFiles = $request->getUploadedFiles();
-		// handle single input with single file upload
-		if ($uploadedFiles)
-		{
-			$uploadedFile = $uploadedFiles['photo'];
-			if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-				$filename = $this->moveUploadedFile($directory, $uploadedFile, $userdir);
-				// $response->write('uploaded ' . $filename . '<br/>');
-			}
-		}
-		/*
-		** send csrf values for ajax request
-		*/
-		$ajax_csrf = $request->getAttribute('ajax_csrf');
-		$response->write(json_encode($ajax_csrf));
-		// handle multiple inputs with the same key
-	    // foreach ($uploadedFiles['photo'] as $uploadedFile) {
-	    //     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-	    //         $filename = $this->moveUploadedFile($directory, $uploadedFile, $userdir);
-	    //         $response->write('uploaded ' . $filename . '<br/>');
-	    //     }
-	    // }
-		// return $response->withRedirect($this->router->pathFor('user.edit.photo'));
-		// return $response->withRedirect($this->router->pathFor('auth.edit.user'));
-	}
-	
-	public function postDeletePhotoProfile($request, $response)
-	{
-		$photoWithTokenLikeKey = $request->getParsedBody();
-		$photoWithTokenLikeIndex = array_keys($photoWithTokenLikeKey);
-		$src = $photoWithTokenLikeIndex['0'];
-		$src = preg_replace('/_/', '.', $src);
-		/*
-		** LINE BELOW NEED TO BE FIXED 
-		*/
-		// $src = str_replace('http://127.0.0.1:8800', '', $src);
-		$src = str_replace('http://localhost:8800', '', $src);
-		// echo $src;
-		Photo::delUserPhoto($src);
-		/*
-		** send csrf values for ajax request
-		*/
-		$ajax_csrf = $request->getAttribute('ajax_csrf');
-		$response->write(json_encode($ajax_csrf));
+		return $photo_src;
 	}
 }
 

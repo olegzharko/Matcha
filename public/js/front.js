@@ -164,27 +164,22 @@ $(document).ready(function() {
 				.addClass('file-ok')
 				.css('background-image', 'url(' + userPhoto[i] + ')');
 			$labelCloseLink.css('display', 'block');
+			$file.prop('disabled', true);
 			i++;
 		}
 		// When a new file is selected
 		$file.on('change', function(event){
-			// var fileName = $file.val().split( '\\' ).pop();
-			var	tmppath = event.target.files[0],
-				bg_img = URL.createObjectURL(tmppath);
-			//Check successfully selection
-			// console.log(tmppath);
-			// if ( fileName ) {
-				// var url = '/user/edit/photo';
+			var	tmppath = event.target.files[0];
+			var bg_img = URL.createObjectURL(tmppath);
 			var data = new FormData();
 			var tokenName =  $('input[name="csrf_name"]');
 			var tokenValue =  $('input[name="csrf_value"]');
-			// var data = {"photo" : tmppath,"csrf_name" : tokenName,"csrf_value" : tokenValue};
-			data.append("photo", tmppath);//$('input[type=file]')[0].files[0]);
+			data.append("photo", tmppath);
 			data.append("csrf_name", tokenName.attr('value'));
 			data.append("csrf_value", tokenValue.attr('value'));
 			// console.log(data);
 			$.ajax({
-				url: '/user/edit/photo',
+				url: '/user/edit/photo_upload',
 				type: 'POST',
 				method: 'POST',
 				data: data,
@@ -195,15 +190,15 @@ $(document).ready(function() {
 				success: function(data, textStatus, jqXHR)
 				{
 					console.log('success');
-					// console.log(data);
 					var obj = JSON.parse(data);
-					tokenName.val(obj.csrf_name);
-					tokenValue.val(obj.csrf_value);
+					tokenName.val(obj[0].csrf_name);
+					tokenValue.val(obj[0].csrf_value);
 					// STOP LOADING SPINNER
 					$label
 						.addClass('file-ok')
-						.css('background-image', 'url(' + bg_img + ')');
+						.css('background-image', 'url(' + obj.file_name + ')');
 					$labelCloseLink.css('display', 'block');
+					$file.prop('disabled', true);
 				},
 				error: function(jqXHR, textStatus, errorThrown)
 				{
@@ -227,7 +222,6 @@ $(document).ready(function() {
 		$labelCloseLink.on('click', function(event) {
 			var imgSrc = $(this).parent().css('background-image');
 			imgSrc = imgSrc.replace('url(','').replace(')','').replace(/\"/gi, "");
-			// console.log(imgSrc);
 			var data = new FormData();
 			var tokenName =  $('input[name="csrf_name"]');
 			var tokenValue =  $('input[name="csrf_value"]');
@@ -254,8 +248,8 @@ $(document).ready(function() {
 					.css('background-image', '');
 					$labelText.text(labelDefault);
 					$labelCloseLink.css('display', 'none');
+					$file.prop('disabled', false);
 					// STOP LOADING SPINNER
-					
 				},
 				error: function(jqXHR, textStatus, errorThrown)
 				{

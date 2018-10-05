@@ -33,6 +33,16 @@ $app->group('', function () {
 	*/
 	$this->get('/', 'HomeController:index')->setName('home');
 	/*
+	** edit profile
+	*/
+	$this->get('/auth/edit/user', 'EditController:getChangeProfile')->setName('auth.edit.user');
+	$this->post('/auth/edit/user', 'EditController:postChangeProfile');
+	/*
+	** edit profile (handle user photo)
+	*/
+	$this->post('/user/edit/photo_delete', 'PhotoController:postDeletePhoto')->setName('user.edit.photo_delete');
+	$this->post('/user/edit/photo_upload', 'PhotoController:postUploadPhoto')->setName('user.edit.photo_post');
+	/*
 	** sign out
 	*/
 	$this->get('/auth/signout', 'AuthController:getSignOut')->setName('auth.signout');
@@ -45,11 +55,9 @@ $app->group('', function () {
 	** account settings (reset password)
 	*/
 	$this->post('/auth/password/reset', 'PasswordController:postResetPassword');
+	
 
 
-
-	$this->get('/auth/edit/user', 'EditController:getChangeProfile')->setName('auth.edit.user');
-	$this->post('/auth/edit/user', 'EditController:postChangeProfile');
 
 	$this->get('/user/edit/info', 'AboutController:getEditProfile')->setName('user.edit.info');
 	$this->post('/user/edit/info', 'AboutController:postEditProfile');
@@ -59,9 +67,8 @@ $app->group('', function () {
 	$this->post('/user/edit/interests_delete', 'InterestsController:postDeleteInterestsProfile')->setName('user.edit.interests_delete');
 	$this->post('/user/edit/interests_add', 'InterestsController:postAddInterestsProfile')->setName('user.edit.interests_add');
 	
-	$this->get('/user/edit/photo', 'PhotoController:getPhotoProfile')->setName('user.edit.photo');
-	$this->post('/user/edit/photo_delete', 'PhotoController:postDeletePhotoProfile')->setName('user.edit.photo_delete');
-	$this->post('/user/edit/photo', 'PhotoController:postPhotoProfile')->setName('user.edit.photo_post');
+	// $this->get('/user/edit/photo', 'PhotoController:getPhotoProfile')->setName('user.edit.photo');
+	
 
 	$this->get('/search/all', 'SearchController:getAllProfile')->setName('search.all');
 	$this->post('/search/like', 'LikedController:getLike')->setName('search.like');

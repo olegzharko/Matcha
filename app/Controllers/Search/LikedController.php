@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: olegzharko
- * Date: 23.09.2018
- * Time: 13:11
- */
 
 namespace Matcha\Controllers\Search;
-
 
 use Matcha\Controllers\Controller;
 use Slim\Http\Request;

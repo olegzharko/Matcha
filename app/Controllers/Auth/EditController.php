@@ -7,9 +7,6 @@ use Matcha\Models\About;
 use Matcha\Models\InterestList;
 use Matcha\Models\UserInterest;
 use Matcha\Models\Photo;
-/*
- * use покажет какой родительский контроллер нужно использовать
- * */
 use Matcha\Controllers\Controller;
 use Matcha\Controllers\Check\CheckController;
 use Respect\Validation\Validator as v;
