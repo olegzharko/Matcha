@@ -81,5 +81,5 @@ $app->group('', function () {
 	$this->post('/search/like', 'LikedController:getLike')->setName('search.like');
 	$this->post('/search/unlike', 'LikedController:getUnlike')->setName('search.unlike');
 
-    $this->get('/chat', 'ChatController:index');
+    $this->get('/chat', 'ChatController:index')->setName('chat');
 })->add(new AuthMiddleware($container));
