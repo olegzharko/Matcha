@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ozharko
- * Date: 9/5/18
- * Time: 11:55 AM
- */
+
 namespace Matcha\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +27,7 @@ class Photo extends Model
 	public static function getUserPhoto()
 	{
 		$allPhoto = Photo::get();
+		$photoResult = array();
 		if ($allPhoto) {
 			if (!empty($allPhoto['0']) && isset($allPhoto['0']))
 			{

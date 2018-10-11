@@ -55,7 +55,14 @@ $app->group('', function () {
 	** account settings (reset password)
 	*/
 	$this->post('/auth/password/reset', 'PasswordController:postResetPassword');
-	
+	/*
+	** discovery settings
+	*/
+	$this->get('/user/search/discovery_settings', 'DiscoverySettingsController:getEditDiscoverySettings')->setName('user.search.discovery_settings');
+	$this->post('/user/search/discovery_settings', 'DiscoverySettingsController:postEditDiscoverySettings');
+	$this->post('/user/search/discovery_settings_add_interest', 'DiscoverySettingsController:postAddDiscoveryInterests');
+	$this->post('/user/search/discovery_settings_remove_interest', 'DiscoverySettingsController:postDeleteDiscoveryInterests');
+	$this->post('/user/search/set_geolocation', 'DiscoverySettingsController:postSetGeolocation');
 
 
 
@@ -73,4 +80,6 @@ $app->group('', function () {
 	$this->get('/search/all', 'SearchController:getAllProfile')->setName('search.all');
 	$this->post('/search/like', 'LikedController:getLike')->setName('search.like');
 	$this->post('/search/unlike', 'LikedController:getUnlike')->setName('search.unlike');
+
+    $this->get('/chat', 'ChatController:index');
 })->add(new AuthMiddleware($container));

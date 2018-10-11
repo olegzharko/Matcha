@@ -30,12 +30,13 @@ class ActivateController extends Controller
 		$user = CheckEmail::where('uniq_id', $uniqid)->first();
 
 		User::setActiveAccount($user->email);
+		DiscoverySettings::createAndSetDefault();
 		$email = $request->getParam('email');
 		$user = User::where('email', $email)->first();
 
-		if ($user->active == 1) {
+		if ($user->email_confirmed == 1) {
 			$_SESSION['user'] = $user->id;
-			// $this->flash->addMessage('info', 'Welcome my friend');
+			CheckEmail::where('uniq_id', $uniqid)->delete();
 			return $response->withRedirect($this->router->pathFor('auth.edit.user'));
 		}
 	}
