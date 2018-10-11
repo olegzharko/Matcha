@@ -18,10 +18,22 @@ class ChatController extends Controller
     {
         // добавить сюда массив сообщений с переписки и в глобальное окружение на вывод
 
+        $allMessage = Chat::all();
+
+        foreach ($allMessage as $rowMessage)
+        {
+            $chat_id = 1;
+            if ($rowMessage->chat_id == $chat_id)
+            {
+                $arrMes[] = $rowMessage;
+            }
+        }
+
         $userInfo = $this->checker->user();
 
         $message_id['username'] = $userInfo->username;
         $this->container->view->getEnvironment()->addGlobal('message_id', $message_id);
+        $this->container->view->getEnvironment()->addGlobal('arrMessage', $arrMes);
 
         return $this->view->render($response, 'chat/chat.twig');
     }
