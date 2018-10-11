@@ -358,16 +358,16 @@ $(document).ready(function(){
     websocket.onclose = function(event){
         showMessage("<div class='chat-connection-ack'>Connection Closed</div>");
     };
-
-    $('#frmChat').on("submit",function(event){
-        event.preventDefault();
-        $('#chat-user').attr("type","hidden");
-        var messageJSON = {
-            chat_user: $('#chat-user').val(),
-            chat_message: $('#chat-message').val()
-        };
-        websocket.send(JSON.stringify(messageJSON));
-    });
+	
+    // $('#frmChat').on("submit",function(event){
+    //     event.preventDefault();
+    //     $('#chat-user').attr("type","hidden");
+    //     var messageJSON = {
+    //         chat_user: $('#chat-user').val(),
+    //         chat_message: $('#chat-message').val()
+    //     };
+    //     websocket.send(JSON.stringify(messageJSON));
+    // });
 });
 
 
